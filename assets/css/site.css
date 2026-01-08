@@ -126,7 +126,7 @@ body{
   margin: 0 0 10px;
   font-weight: 700;
   letter-spacing: -0.01em;
-  font-size: clamp(16px, 2.2cqi, 30px); /* cqi=容器宽度单位，支持则更准确 */
+  font-size: clamp(22px, 6vw, 52px);
   line-height: 1.15;
   text-shadow: 0 2px 6px rgba(0,0,0,.35);
 }
@@ -147,21 +147,17 @@ body{
 
 /* ========== Container Queries：右半区越窄，字号越小 ========== */
 @container (max-width: 560px){
-  .intro h1{ font-size: 22px; }
   .intro p{ font-size: 13px; }
 }
 
 @container (max-width: 460px){
-  .intro h1{ font-size: 20px; }
   .intro p{ font-size: 12px; }
 }
 
 @container (max-width: 380px){
-  .intro h1{ font-size: 18px; }
   .intro p{ font-size: 11px; }
 }
 
 @container (max-width: 320px){
-  .intro h1{ font-size: 16px; }
   .intro p{ font-size: 10.5px; }
 }

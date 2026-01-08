@@ -98,6 +98,37 @@ a{ color: inherit; text-underline-offset: 3px; }
   text-decoration: underline;
 }
 
+/* 只显示图标：隐藏文字但保留可访问性 */
+.iconlink span{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 让图标链接点击区域更舒服 */
+.iconlink{
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;              /* 因为不显示文字了 */
+  margin: 8px 0;
+}
+
+.iconlink svg{
+  width: 20px;
+  height: 20px;
+}
+
+
 /* About me 文案 */
 .intro h1{
   margin: 0 0 10px;
@@ -113,6 +144,14 @@ a{ color: inherit; text-underline-offset: 3px; }
   font-size: 16px;
 }
 
+.intro{
+  max-width: 760px;
+
+  /* 让文字从“页面中线附近”开始：微调这个值 */
+  margin-left: clamp(0px, 6vw, 120px);
+}
+
+
 /* 移动端：改为上下布局 */
 @media (max-width: 720px){
   .banner{
@@ -120,11 +159,20 @@ a{ color: inherit; text-underline-offset: 3px; }
   }
 
   .banner-content{
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding-top: 16px;
-    align-content: start;
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: grid;
+  
+    /* 左边只放图标：更窄 */
+    grid-template-columns: 80px 1fr;
+  
+    gap: 24px;
+    align-items: center;
+    align-content: center;
+    color: #fff;
   }
+
 
   .intro h1{
     font-size: 24px;

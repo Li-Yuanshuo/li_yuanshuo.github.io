@@ -63,6 +63,7 @@ body{
   justify-content: center;
   color: var(--white);
   text-decoration: none;
+  text-shadow: 0 2px 6px rgba(0,0,0,.35);
 }
 
 .iconlink:hover{
@@ -107,9 +108,20 @@ body{
   container-type: inline-size;
 }
 
+.banner-right::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.35) 40%, rgba(0,0,0,.55) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* About me 内容 */
 .intro{
   max-width: 760px;
+  position: relative;
+  z-index: 1;
 }
 
 /* 基础流体字体（即使不支持 container query 也能缩放） */
@@ -119,6 +131,7 @@ body{
   letter-spacing: -0.01em;
   font-size: clamp(16px, 2.2cqi, 30px); /* cqi=容器宽度单位，支持则更准确 */
   line-height: 1.15;
+  text-shadow: 0 2px 6px rgba(0,0,0,.35);
 }
 
 .intro p{
@@ -126,6 +139,7 @@ body{
   color: rgba(255,255,255,.92);
   font-size: clamp(11px, 1.25cqi, 16px);
   line-height: 1.55;
+  text-shadow: 0 2px 6px rgba(0,0,0,.35);
 
   /* 最多 3 行 */
   display: -webkit-box;

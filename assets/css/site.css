@@ -38,19 +38,13 @@ body{
   filter: none;
 }
 
-/* 左侧：图标区（受 wrap 约束） */
-.banner-left{
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
 .contact{
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  gap: 12px;
+  margin: 0 0 12px;
+  padding: 0;
+  align-items: center;
 }
 
 /* 图标链接 */

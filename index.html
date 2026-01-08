@@ -8,23 +8,22 @@ layout: none
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Liyuanshuo</title>
 
-  <!-- Main stylesheet -->
   <link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>
 
 <section class="banner">
-  <div class="banner-bg"></div>
+  <!-- Background layer -->
+  <div class="banner-bg" aria-hidden="true"></div>
 
   <div class="wrap banner-content">
-    <!-- Contact / links -->
-    <div class="contact">
+    <!-- Left: icons only -->
+    <nav class="contact" aria-label="Contact links">
       <a class="iconlink" href="mailto:Liy14@tcd.ie" aria-label="Email">
-        <!-- Email icon -->
+        <!-- Mail icon -->
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11A2.5 2.5 0 0 1 17.5 20h-11A2.5 2.5 0 0 1 4 17.5v-11zm2.2-.5 5.52 4.23c.17.13.39.2.62.2s.45-.07.62-.2L18.5 6H6.2z"/>
         </svg>
-
         <span>Email</span>
       </a>
 
@@ -45,16 +44,15 @@ layout: none
          target="_blank"
          rel="noopener noreferrer"
          aria-label="LinkedIn">
-        <!-- LinkedIn icon (standard, stable) -->
+        <!-- LinkedIn icon -->
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0.3 23.5h4.4V7.9H0.3v15.6zM8.1 7.9h4.2v2.1h.1c.6-1.1 2-2.3 4.1-2.3 4.4 0 5.2 2.9 5.2 6.6v9.2h-4.4v-8.2c0-2-.04-4.6-2.8-4.6-2.8 0-3.2 2.2-3.2 4.5v8.3H8.1V7.9z"/>
         </svg>
-
         <span>LinkedIn</span>
       </a>
-    </div>
+    </nav>
 
-    <!-- Intro text -->
+    <!-- Right: About me (fixed to right half) -->
     <div class="intro">
       <h1>About me</h1>
       <p>

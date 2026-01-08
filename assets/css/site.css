@@ -14,6 +14,7 @@ body{
   line-height: 1.6;
 }
 
+/* 通用内容容器（只影响左侧） */
 .wrap{
   max-width: var(--max);
   margin: 0 auto;
@@ -28,7 +29,7 @@ body{
   border-bottom: 1px solid var(--border);
 }
 
-/* 背景图：不额外 blur */
+/* 背景图（你本身已模糊，不再额外处理） */
 .banner-bg{
   position: absolute;
   inset: 0;
@@ -36,10 +37,9 @@ body{
   background-size: cover;
   background-position: 60% 40%;
   filter: none;
-  transform: none;
 }
 
-/* 左侧：图标区（受 wrap 控制） */
+/* 左侧：图标区（受 wrap 约束） */
 .banner-left{
   position: relative;
   z-index: 2;
@@ -54,7 +54,7 @@ body{
   gap: 10px;
 }
 
-/* 图标链接：只显示图标（文字隐藏但可读） */
+/* 图标链接 */
 .iconlink{
   width: 38px;
   height: 38px;
@@ -62,8 +62,8 @@ body{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
   color: var(--white);
+  text-decoration: none;
 }
 
 .iconlink:hover{
@@ -77,6 +77,7 @@ body{
   opacity: .95;
 }
 
+/* 隐藏文字但保留可访问性 */
 .iconlink span{
   position: absolute;
   width: 1px;
@@ -89,38 +90,74 @@ body{
   border: 0;
 }
 
-/* 右侧：完全脱离 wrap，固定为 viewport 右半部分 */
+/* ========== 右侧：严格占据视口右半 50vw ========== */
 .banner-right{
   position: absolute;
   z-index: 2;
-
-  /* ✅ 严格占据右半屏 */
-  left: 50vw;
   top: 0;
+  left: 50vw;
   width: 50vw;
   height: 100%;
 
   display: flex;
   align-items: center;
-  padding: 0 24px;
+  padding: 0 28px;
   color: var(--white);
+
+  /* ⭐ 关键：声明为容器，供 container query 使用 */
+  container-type: inline-size;
 }
 
-/* 右侧文字：控制行长 */
+/* About me 内容 */
 .intro{
   max-width: 760px;
 }
 
+/* --- 流体字体（基础） --- */
 .intro h1{
   margin: 0 0 10px;
   font-weight: 700;
-  font-size: 28px;
   letter-spacing: -0.01em;
+
+  /* 先用 clamp 做基础流体 */
+  font-size: clamp(20px, 2.2vw, 30px);
+  line-height: 1.15;
 }
 
 .intro p{
   margin: 0;
   color: rgba(255,255,255,.92);
+
+  font-size: clamp(13px, 1.25vw, 16px);
+  line-height: 1.55;
+
+  /* ⭐ 最多 3 行，防止撑高 banner */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ========== Container Queries：只根据右半区宽度缩放 ========== */
+
+/* 右半区 <= 520px */
+@container (max-width: 520px){
+  .intro h1{
+    font-size: 20px;
+  }
+  .intro p{
+    font-size: 13px;
+  }
+}
+
+/* 右半区 <= 420px */
+@container (max-width: 420px){
+  .intro h1{
+    font-size: 18px;
+  }
+  .intro p{
+    font-size: 12px;
+  }
 }
 
 /* ========== Mobile ========== */
@@ -129,14 +166,14 @@ body{
     height: clamp(240px, 42vw, 420px);
   }
 
-  /* 手机端：右侧不再固定半屏，改成普通流布局 */
+  /* 手机端取消右半固定布局 */
   .banner-right{
     position: relative;
     left: auto;
-    top: auto;
     width: auto;
     height: auto;
     padding: 10px 0 0;
+    container-type: normal;
   }
 
   .banner-left{
@@ -155,5 +192,9 @@ body{
 
   .intro h1{
     font-size: 24px;
+  }
+
+  .intro p{
+    -webkit-line-clamp: unset; /* 手机端不截断 */
   }
 }

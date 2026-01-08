@@ -8,7 +8,6 @@
 
 body{
   margin: 0;
-  /* 方案A：系统字体栈 */
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
                "Apple Color Emoji","Segoe UI Emoji";
   font-size: 16px;
@@ -29,7 +28,7 @@ body{
   border-bottom: 1px solid var(--border);
 }
 
-/* 背景图：你的图片本身已经模糊 -> 不额外 blur */
+/* 背景图：不额外 blur */
 .banner-bg{
   position: absolute;
   inset: 0;
@@ -40,28 +39,22 @@ body{
   transform: none;
 }
 
-/* 关键：右半部分固定为 50vw */
-.banner-content{
+/* 左侧：图标区（受 wrap 控制） */
+.banner-left{
   position: relative;
   z-index: 2;
   height: 100%;
-
-  display: grid;
-  grid-template-columns: 1fr 50vw; /* ✅ About me 只占右半部分 */
-
+  display: flex;
   align-items: center;
-  color: var(--white);
 }
 
-/* 左侧图标区：靠左一些，点击区域舒服 */
 .contact{
-  padding-left: 8px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* 图标链接（只显示图标；文字隐藏但保留可访问性） */
+/* 图标链接：只显示图标（文字隐藏但可读） */
 .iconlink{
   width: 38px;
   height: 38px;
@@ -69,9 +62,8 @@ body{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  color: var(--white);
   text-decoration: none;
+  color: var(--white);
 }
 
 .iconlink:hover{
@@ -85,7 +77,6 @@ body{
   opacity: .95;
 }
 
-/* 隐藏文字，但屏幕阅读器仍可读 */
 .iconlink span{
   position: absolute;
   width: 1px;
@@ -98,10 +89,26 @@ body{
   border: 0;
 }
 
-/* About me 文案：在右半区内部控制行长 */
+/* 右侧：完全脱离 wrap，固定为 viewport 右半部分 */
+.banner-right{
+  position: absolute;
+  z-index: 2;
+
+  /* ✅ 严格占据右半屏 */
+  left: 50vw;
+  top: 0;
+  width: 50vw;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  color: var(--white);
+}
+
+/* 右侧文字：控制行长 */
 .intro{
   max-width: 760px;
-  padding-left: 24px;
 }
 
 .intro h1{
@@ -122,23 +129,28 @@ body{
     height: clamp(240px, 42vw, 420px);
   }
 
-  /* 手机上不再强制 50vw，改为上下布局 */
-  .banner-content{
-    grid-template-columns: 1fr;
-    padding: 16px 0;
-    align-content: start;
-    gap: 12px;
+  /* 手机端：右侧不再固定半屏，改成普通流布局 */
+  .banner-right{
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    padding: 10px 0 0;
+  }
+
+  .banner-left{
+    align-items: flex-start;
+    padding-top: 16px;
   }
 
   .contact{
     flex-direction: row;
     gap: 10px;
-    padding-left: 0;
   }
 
   .intro{
     max-width: 100%;
-    padding-left: 0;
   }
 
   .intro h1{

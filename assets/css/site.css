@@ -134,7 +134,7 @@ body{
 .intro p{
   margin: 0;
   color: rgba(255,255,255,.92);
-  font-size: clamp(11px, 1.25cqi, 20px);
+  font-size: clamp(12px, 1.6cqi, 26px);
   line-height: 1.55;
   text-shadow: 0 2px 6px rgba(0,0,0,.35);
 

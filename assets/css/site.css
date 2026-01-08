@@ -45,6 +45,8 @@ body{
   margin: 0 0 12px;
   padding: 0;
   align-items: center;
+  justify-content: flex-start;
+  align-self: flex-start;
 }
 
 /* 图标链接 */
@@ -114,6 +116,7 @@ body{
 /* About me 内容 */
 .intro{
   max-width: 760px;
+  width: 100%;
   position: relative;
   z-index: 1;
 }

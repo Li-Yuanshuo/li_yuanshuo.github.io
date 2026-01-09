@@ -138,9 +138,9 @@ body{
   line-height: 1.55;
   text-shadow: 0 2px 6px rgba(0,0,0,.35);
 
-  /* 最多 3 行 */
+  /* 最多 6 行 */
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

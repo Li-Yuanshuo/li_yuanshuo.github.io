@@ -86,13 +86,13 @@ body{
   border: 0;
 }
 
-/* ========== 右侧：永远占据视口右半 50vw ========== */
+/* ========== 右侧：桌面端占据视口右半 50vw ========== */
 .banner-right{
   position: absolute;
   z-index: 2;
   top: 0;
-  left: 40vw;
-  width: 60vw;
+  left: 50vw;
+  width: 50vw;
   height: 100%;
 
   display: flex;
@@ -102,6 +102,13 @@ body{
 
   /* 容器查询：以右半区宽度为基准 */
   container-type: inline-size;
+}
+
+@media (max-width: 768px){
+  .banner-right{
+    left: 40vw;
+    width: 60vw;
+  }
 }
 
 .banner-right::before{

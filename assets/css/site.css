@@ -105,9 +105,23 @@ body{
 }
 
 @media (max-width: 768px){
+  .banner{
+    height: auto;
+  }
+
   .banner-right{
-    left: 40vw;
-    width: 60vw;
+    position: relative;
+    left: 0;
+    width: 100%;
+    height: auto;
+    padding: 18px 20px 24px;
+  }
+
+  .intro p{
+    display: block;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+    overflow: visible;
   }
 }
 

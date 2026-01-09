@@ -146,7 +146,7 @@ body{
 }
 
 /* ========== Container Queries：右半区越窄，字号越小 ========== */
-@container (max-width: 560px){
+@container (max-width: 1000px){
   .intro p{ font-size: 13px; }
 }
 

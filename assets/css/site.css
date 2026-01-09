@@ -134,7 +134,7 @@ body{
 .intro p{
   margin: 0;
   color: rgba(255,255,255,.92);
-  font-size: clamp(12px, 1.6vw, 36px);
+  font-size: clamp(12px, 2cqi, 18px);
   line-height: 1.55;
   text-shadow: 0 2px 6px rgba(0,0,0,.35);
 
@@ -143,21 +143,4 @@ body{
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-/* ========== Container Queries：右半区越窄，字号越小 ========== */
-@container (max-width: 560px){
-  .intro p{ font-size: 13px; }
-}
-
-@container (max-width: 460px){
-  .intro p{ font-size: 12px; }
-}
-
-@container (max-width: 380px){
-  .intro p{ font-size: 11px; }
-}
-
-@container (max-width: 320px){
-  .intro p{ font-size: 10.5px; }
 }

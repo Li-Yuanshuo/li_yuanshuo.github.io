@@ -1,11 +1,14 @@
+/* Global design tokens */
 :root{
   --max: 1100px;
   --border: #e6e6e6;
   --white: #fff;
 }
 
+/* Normalize box sizing across elements */
 *{ box-sizing: border-box; }
 
+/* Base typography defaults */
 body{
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
@@ -14,6 +17,7 @@ body{
   line-height: 1.6;
 }
 
+/* Centered content container */
 .wrap{
   max-width: var(--max);
   margin: 0 auto;
@@ -38,6 +42,7 @@ body{
   filter: none;
 }
 
+/* Contact icon row */
 .contact{
   display: flex;
   flex-direction: row;
@@ -104,12 +109,14 @@ body{
   container-type: inline-size;
 }
 
+/* Smaller screens: reduce intro paragraph font size */
 @media (max-width: 768px){
   .intro p{
     font-size: clamp(6px, 2cqi, 14px);
   }
 }
 
+/* Smaller screens: shift banner content left for visibility */
 @media (max-width: 768px){
   .banner-right{
     left: 40vw;
@@ -117,6 +124,7 @@ body{
   }
 }
 
+/* Dark gradient overlay for text readability */
 .banner-right::before{
   content: "";
   position: absolute;
@@ -151,7 +159,7 @@ body{
   line-height: 1.55;
   text-shadow: 0 2px 6px rgba(0,0,0,.35);
 
-  /* 最多 6 行 */
+  /* 最多 7 行 */
   display: -webkit-box;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
@@ -180,6 +188,7 @@ body{
   color: #666;
 }
 
+/* Carousel layout and controls */
 .carousel{
   position: relative;
   display: grid;
@@ -188,6 +197,7 @@ body{
   gap: 16px;
 }
 
+/* Mask overflow to show one slide at a time */
 .carousel__viewport{
   overflow: hidden;
   border-radius: 18px;
@@ -195,6 +205,7 @@ body{
   background: #111;
 }
 
+/* Sliding track for the carousel */
 .carousel__track{
   list-style: none;
   padding: 0;
@@ -203,10 +214,12 @@ body{
   transition: transform .5s ease;
 }
 
+/* Each slide spans the full viewport width */
 .carousel__slide{
   min-width: 100%;
 }
 
+/* Clickable card used for preview updates */
 .carousel__card{
   position: relative;
   width: 100%;
@@ -225,6 +238,7 @@ body{
   object-fit: cover;
 }
 
+/* Title overlay shown on hover/focus */
 .carousel__overlay{
   position: absolute;
   inset: 0;
@@ -249,6 +263,7 @@ body{
   font-weight: 600;
 }
 
+/* Previous/next buttons */
 .carousel__btn{
   border: none;
   background: rgba(0,0,0,.65);
@@ -268,6 +283,7 @@ body{
   transform: scale(1.05);
 }
 
+/* Pagination dots */
 .carousel__dots{
   display: flex;
   justify-content: center;
@@ -290,6 +306,7 @@ body{
   transform: scale(1.2);
 }
 
+/* Large preview panel beneath the carousel */
 .carousel__preview{
   border-radius: 20px;
   overflow: hidden;
@@ -305,6 +322,7 @@ body{
   object-fit: cover;
 }
 
+/* Single-column carousel on smaller screens */
 @media (max-width: 900px){
   .carousel{
     grid-template-columns: 1fr;

@@ -11,12 +11,14 @@ layout: none
 </head>
 <body>
 
+<!-- Hero banner with background image and intro content -->
 <section class="banner">
   <div class="banner-bg" aria-hidden="true"></div>
 
   <!-- 右侧：严格占据视口右半 (50vw)，完全不受 wrap 影响 -->
   <div class="banner-right">
     <div class="intro">
+      <!-- Contact links with accessible text labels -->
       <nav class="contact contact--inline" aria-label="Contact links">
         <a class="iconlink" href="mailto:Liy14@tcd.ie" aria-label="Email">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -47,6 +49,7 @@ layout: none
           <span>LinkedIn</span>
         </a>
       </nav>
+      <!-- Intro headline and summary -->
       <h1>Li Yuanshuo</h1>
       <p>
         I am a genomic data researcher and analyst, focusing on comparative genomics and expression analysis. I design visualizations that transform large-scale biological data into intuitive and interpretable representations.
@@ -55,18 +58,22 @@ layout: none
   </div>
 </section>
 
+<!-- Carousel gallery with navigation and preview -->
 <section class="carousel-section">
   <div class="wrap">
+    <!-- Carousel heading copy -->
     <header class="carousel-header">
       <h2>Featured Gallery</h2>
       <p>Seven snapshots highlighting recent visual stories.</p>
     </header>
 
     <div class="carousel" data-carousel>
+      <!-- Previous control -->
       <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">
         <span aria-hidden="true">‹</span>
       </button>
 
+      <!-- Slide viewport with track -->
       <div class="carousel__viewport">
         <ul class="carousel__track">
           <li class="carousel__slide">
@@ -133,6 +140,7 @@ layout: none
       </button>
     </div>
 
+    <!-- Pagination dots -->
     <div class="carousel__dots" role="tablist" aria-label="Carousel pagination">
       <button class="carousel__dot" type="button" aria-label="Slide 1" data-slide="0"></button>
       <button class="carousel__dot" type="button" aria-label="Slide 2" data-slide="1"></button>
@@ -143,6 +151,7 @@ layout: none
       <button class="carousel__dot" type="button" aria-label="Slide 7" data-slide="6"></button>
     </div>
 
+    <!-- Larger preview for the selected slide -->
     <div class="carousel__preview" aria-live="polite">
       <img src="/assets/img/carousel-1.svg" alt="Genome landscape overview (large preview)">
     </div>
@@ -150,6 +159,7 @@ layout: none
 </section>
 
 <script>
+  // Cache carousel elements for faster lookups.
   const carousel = document.querySelector("[data-carousel]");
   const track = carousel.querySelector(".carousel__track");
   const slides = Array.from(track.querySelectorAll(".carousel__slide"));
@@ -158,8 +168,10 @@ layout: none
   const nextBtn = carousel.querySelector(".carousel__btn--next");
   const previewImage = document.querySelector(".carousel__preview img");
 
+  // Track the currently visible slide.
   let currentIndex = 0;
 
+  // Update slide position, active dot, and wrap around edges.
   const updateCarousel = (index) => {
     currentIndex = (index + slides.length) % slides.length;
     track.style.transform = `translateX(-${currentIndex * 100}%)`;
@@ -168,15 +180,18 @@ layout: none
     });
   };
 
+  // Previous/next button navigation.
   prevBtn.addEventListener("click", () => updateCarousel(currentIndex - 1));
   nextBtn.addEventListener("click", () => updateCarousel(currentIndex + 1));
 
+  // Jump to a specific slide when a dot is clicked.
   dots.forEach((dot) => {
     dot.addEventListener("click", () => {
       updateCarousel(Number(dot.dataset.slide));
     });
   });
 
+  // Update the large preview image when a slide card is clicked.
   slides.forEach((slide) => {
     const card = slide.querySelector(".carousel__card");
     card.addEventListener("click", () => {
@@ -186,6 +201,7 @@ layout: none
     });
   });
 
+  // Initialize the carousel at the first slide.
   updateCarousel(0);
 </script>
 

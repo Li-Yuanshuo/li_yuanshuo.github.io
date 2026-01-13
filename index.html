@@ -70,37 +70,37 @@ layout: none
         <ul class="carousel__track">
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-1.svg" alt="Genome landscape overview">
+              <img src="/assets/img/carousel-1.svg" alt="Genome landscape overview" data-source="/assets/img/carousel-1.svg">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-2.svg" alt="Chromosome alignment flow">
+              <img src="/assets/img/carousel-2.svg" alt="Chromosome alignment flow" data-source="/assets/img/carousel-2.svg">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-3.svg" alt="Expression atlas gradient">
+              <img src="/assets/img/carousel-3.svg" alt="Expression atlas gradient" data-source="/assets/img/carousel-3.svg">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-4.svg" alt="Variant clustering map">
+              <img src="/assets/img/carousel-4.svg" alt="Variant clustering map" data-source="/assets/img/carousel-4.svg">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-5.svg" alt="Pathway interaction grid">
+              <img src="/assets/img/carousel-5.svg" alt="Pathway interaction grid" data-source="/assets/img/carousel-5.svg">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-6.svg" alt="RNA-seq signal weave">
+              <img src="/assets/img/carousel-6.svg" alt="RNA-seq signal weave" data-source="/assets/img/carousel-6.svg">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-7.svg" alt="Comparative genome panels">
+              <img src="/assets/img/carousel-7.svg" alt="Comparative genome panels" data-source="/assets/img/carousel-7.svg">
             </button>
           </li>
         </ul>
@@ -120,6 +120,22 @@ layout: none
       <button class="carousel__dot" type="button" aria-label="Slide 6" data-slide="5"></button>
       <button class="carousel__dot" type="button" aria-label="Slide 7" data-slide="6"></button>
     </div>
+
+    <div class="carousel__preview" data-preview>
+      <div class="carousel__preview-header">
+        <h2>Selected visualization</h2>
+        <p>点击上方图片在下方查看大图，可缩放浏览；点击大图在新窗口查看源图代码（R）。</p>
+      </div>
+      <div class="carousel__preview-stage">
+        <img class="carousel__preview-image" src="/assets/img/carousel-1.svg" alt="Genome landscape overview" data-source="/assets/img/carousel-1.svg">
+      </div>
+      <div class="carousel__preview-controls" aria-label="Zoom controls">
+        <button class="carousel__zoom-btn" type="button" data-zoom-out aria-label="Zoom out">−</button>
+        <input class="carousel__zoom-range" type="range" min="1" max="2.5" step="0.1" value="1" data-zoom-range aria-label="Zoom level">
+        <button class="carousel__zoom-btn" type="button" data-zoom-in aria-label="Zoom in">+</button>
+        <span class="carousel__zoom-value" data-zoom-value>100%</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -131,8 +147,37 @@ layout: none
   const dots = Array.from(document.querySelectorAll(".carousel__dot"));
   const prevBtn = carousel.querySelector(".carousel__btn--prev");
   const nextBtn = carousel.querySelector(".carousel__btn--next");
+  const preview = document.querySelector("[data-preview]");
+  const previewImage = preview.querySelector(".carousel__preview-image");
+  const zoomOutBtn = preview.querySelector("[data-zoom-out]");
+  const zoomInBtn = preview.querySelector("[data-zoom-in]");
+  const zoomRange = preview.querySelector("[data-zoom-range]");
+  const zoomValue = preview.querySelector("[data-zoom-value]");
   // Track the currently visible slide.
   let currentIndex = 0;
+  const zoomConfig = {
+    min: 1,
+    max: 2.5,
+    step: 0.1
+  };
+
+  const setZoom = (value) => {
+    const clamped = Math.min(zoomConfig.max, Math.max(zoomConfig.min, value));
+    previewImage.style.transform = `scale(${clamped})`;
+    zoomRange.value = clamped;
+    zoomValue.textContent = `${Math.round(clamped * 100)}%`;
+  };
+
+  const updatePreview = (slide) => {
+    const slideImage = slide.querySelector("img");
+    if (!slideImage) {
+      return;
+    }
+    previewImage.src = slideImage.src;
+    previewImage.alt = slideImage.alt;
+    previewImage.dataset.source = slideImage.dataset.source || slideImage.src;
+    setZoom(1);
+  };
 
   const getSlideOffset = () => {
     if (!slides.length) {
@@ -164,8 +209,44 @@ layout: none
     });
   });
 
+  slides.forEach((slide, index) => {
+    const card = slide.querySelector(".carousel__card");
+    if (!card) {
+      return;
+    }
+    card.addEventListener("click", () => {
+      updateCarousel(index);
+      updatePreview(slide);
+    });
+  });
+
+  zoomRange.addEventListener("input", (event) => {
+    setZoom(Number(event.target.value));
+  });
+
+  zoomOutBtn.addEventListener("click", () => {
+    setZoom(Number(zoomRange.value) - zoomConfig.step);
+  });
+
+  zoomInBtn.addEventListener("click", () => {
+    setZoom(Number(zoomRange.value) + zoomConfig.step);
+  });
+
+  previewImage.addEventListener("click", () => {
+    const source = previewImage.dataset.source;
+    if (!source) {
+      return;
+    }
+    const newWindow = window.open(source, "_blank", "noopener");
+    if (newWindow) {
+      newWindow.opener = null;
+    }
+  });
+
   // Initialize the carousel at the first slide.
   updateCarousel(0);
+  updatePreview(slides[0]);
+  setZoom(1);
 
   window.addEventListener("resize", () => {
     updateCarousel(currentIndex);

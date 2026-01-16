@@ -172,6 +172,23 @@ body{
   background: #fff;
 }
 
+.carousel-section__intro{
+  display: grid;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.carousel-section__intro h2{
+  margin: 0;
+  font-size: clamp(26px, 4vw, 36px);
+}
+
+.carousel-section__intro p{
+  margin: 0;
+  color: #4d4d4d;
+  font-size: 16px;
+}
+
 /* Carousel layout and controls */
 .carousel{
   position: relative;
@@ -199,7 +216,7 @@ body{
 
 /* Each slide spans a card width */
 .carousel__slide{
-  min-width: clamp(190px, 20vw, 260px);
+  min-width: clamp(210px, 22vw, 290px);
 }
 
 /* Clickable card used for preview updates */
@@ -217,10 +234,27 @@ body{
   box-shadow: 0 12px 26px rgba(0,0,0,.18);
 }
 
+.carousel__card-title{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 1;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  background: rgba(0,0,0,.55);
+  pointer-events: none;
+  text-shadow: 0 1px 3px rgba(0,0,0,.35);
+}
+
 .carousel__card img{
   display: block;
   width: 100%;
-  height: clamp(220px, 22vw, 300px);
+  height: clamp(240px, 24vw, 320px);
   object-fit: cover;
 }
 
@@ -237,11 +271,13 @@ body{
   place-items: center;
   font-size: 30px;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.5), 0 10px 20px rgba(0,0,0,.15);
-  transition: background .2s ease, transform .2s ease;
+  opacity: .6;
+  transition: background .2s ease, transform .2s ease, opacity .2s ease;
 }
 
 .carousel__btn:hover{
   background: #c8c8c8;
+  opacity: .85;
   transform: scale(1.05);
 }
 
@@ -302,6 +338,25 @@ body{
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  position: relative;
+}
+
+.carousel__preview-link{
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  font-size: 12px;
+  color: #1c5a93;
+  text-decoration: none;
+  background: rgba(255,255,255,.92);
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #d6e2ee;
+  box-shadow: 0 8px 16px rgba(0,0,0,.12);
+}
+
+.carousel__preview-link:hover{
+  color: #0f3f6a;
 }
 
 .carousel__preview-image{

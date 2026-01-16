@@ -61,6 +61,10 @@ layout: none
 <!-- Carousel gallery with navigation and preview -->
 <section class="carousel-section">
   <div class="wrap">
+    <div class="carousel-section__intro">
+      <h2>Visualization carousel</h2>
+      <p>Explore selected genomics visualizations and tap each thumbnail for a larger preview and related code.</p>
+    </div>
     <div class="carousel" data-carousel>
       <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">
         <span aria-hidden="true">‹</span>
@@ -70,37 +74,44 @@ layout: none
         <ul class="carousel__track">
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-1.svg" alt="Genome landscape overview" data-source="/assets/img/carousel-1.svg">
+              <span class="carousel__card-title">Genome landscape overview</span>
+              <img src="/assets/img/carousel-1.svg" alt="Genome landscape overview" title="Genome landscape overview" data-source="/assets/img/carousel-1.svg" data-code="/assets/codes/carousel-1.R">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-2.svg" alt="Chromosome alignment flow" data-source="/assets/img/carousel-2.svg">
+              <span class="carousel__card-title">Chromosome alignment flow</span>
+              <img src="/assets/img/carousel-2.svg" alt="Chromosome alignment flow" title="Chromosome alignment flow" data-source="/assets/img/carousel-2.svg" data-code="/assets/codes/carousel-2.R">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-3.svg" alt="Expression atlas gradient" data-source="/assets/img/carousel-3.svg">
+              <span class="carousel__card-title">Expression atlas gradient</span>
+              <img src="/assets/img/carousel-3.svg" alt="Expression atlas gradient" title="Expression atlas gradient" data-source="/assets/img/carousel-3.svg" data-code="/assets/codes/carousel-3.R">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-4.webp" alt="Variant clustering map" data-source="/assets/img/carousel-4.svg">
+              <span class="carousel__card-title">Variant clustering map</span>
+              <img src="/assets/img/carousel-4.webp" alt="Variant clustering map" title="Variant clustering map" data-source="/assets/img/carousel-4.svg" data-code="/assets/codes/carousel-4.R">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-5.svg" alt="Pathway interaction grid" data-source="/assets/img/carousel-5.svg">
+              <span class="carousel__card-title">Pathway interaction grid</span>
+              <img src="/assets/img/carousel-5.svg" alt="Pathway interaction grid" title="Pathway interaction grid" data-source="/assets/img/carousel-5.svg" data-code="/assets/codes/carousel-5.R">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-6.svg" alt="RNA-seq signal weave" data-source="/assets/img/carousel-6.svg">
+              <span class="carousel__card-title">RNA-seq signal weave</span>
+              <img src="/assets/img/carousel-6.svg" alt="RNA-seq signal weave" title="RNA-seq signal weave" data-source="/assets/img/carousel-6.svg" data-code="/assets/codes/carousel-6.R">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <img src="/assets/img/carousel-7.svg" alt="Comparative genome panels" data-source="/assets/img/carousel-7.svg">
+              <span class="carousel__card-title">Comparative genome panels</span>
+              <img src="/assets/img/carousel-7.svg" alt="Comparative genome panels" title="Comparative genome panels" data-source="/assets/img/carousel-7.svg" data-code="/assets/codes/carousel-7.R">
             </button>
           </li>
         </ul>
@@ -124,9 +135,10 @@ layout: none
     <div class="carousel__preview" data-preview>
       <div class="carousel__preview-header">
         <h2>Selected visualization</h2>
-        <p>点击上方图片在下方查看大图；点击大图在新窗口查看源图代码（R）。</p>
+        <p>点击上方图片在下方查看大图；右上角链接可查看对应代码。</p>
       </div>
       <div class="carousel__preview-stage">
+        <a class="carousel__preview-link" href="/assets/codes/carousel-1.R" target="_blank" rel="noopener noreferrer">clink to check source code</a>
         <img class="carousel__preview-image" src="/assets/img/carousel-1.svg" alt="Genome landscape overview" data-source="/assets/img/carousel-1.svg">
       </div>
     </div>
@@ -143,6 +155,7 @@ layout: none
   const nextBtn = carousel.querySelector(".carousel__btn--next");
   const preview = document.querySelector("[data-preview]");
   const previewImage = preview.querySelector(".carousel__preview-image");
+  const previewLink = preview.querySelector(".carousel__preview-link");
   // Track the currently visible slide.
   let currentIndex = 0;
 
@@ -154,6 +167,7 @@ layout: none
     previewImage.src = slideImage.src;
     previewImage.alt = slideImage.alt;
     previewImage.dataset.source = slideImage.dataset.source || slideImage.src;
+    previewLink.href = slideImage.dataset.code || slideImage.dataset.source || slideImage.src;
   };
 
   const getSlideOffset = () => {
@@ -215,6 +229,35 @@ layout: none
   window.addEventListener("resize", () => {
     updateCarousel(currentIndex);
   });
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const swipeThreshold = 50;
+
+  const handleTouchStart = (event) => {
+    touchStartX = event.touches[0].clientX;
+  };
+
+  const handleTouchMove = (event) => {
+    touchEndX = event.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const deltaX = touchEndX - touchStartX;
+    if (Math.abs(deltaX) < swipeThreshold) {
+      return;
+    }
+    if (deltaX > 0) {
+      updateCarousel(currentIndex - 1);
+    } else {
+      updateCarousel(currentIndex + 1);
+    }
+  };
+
+  const viewport = carousel.querySelector(".carousel__viewport");
+  viewport.addEventListener("touchstart", handleTouchStart, { passive: true });
+  viewport.addEventListener("touchmove", handleTouchMove, { passive: true });
+  viewport.addEventListener("touchend", handleTouchEnd);
 </script>
 
 </body>

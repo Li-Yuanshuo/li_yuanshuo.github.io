@@ -153,6 +153,7 @@ layout: none
   const dots = Array.from(document.querySelectorAll(".carousel__dot"));
   const prevBtn = carousel.querySelector(".carousel__btn--prev");
   const nextBtn = carousel.querySelector(".carousel__btn--next");
+  const viewport = carousel.querySelector(".carousel__viewport");
   const preview = document.querySelector("[data-preview]");
   const previewImage = preview.querySelector(".carousel__preview-image");
   const previewLink = preview.querySelector(".carousel__preview-link");
@@ -172,18 +173,21 @@ layout: none
 
   const getSlideOffset = () => {
     if (!slides.length) {
-      return 0;
+      return { offset: 0, centerOffset: 0 };
     }
     const slideWidth = slides[0].getBoundingClientRect().width;
     const gap = parseFloat(getComputedStyle(track).gap || 0);
-    return slideWidth + gap;
+    const viewportWidth = viewport.getBoundingClientRect().width;
+    const centerOffset = (viewportWidth - slideWidth) / 2;
+    return { offset: slideWidth + gap, centerOffset };
   };
 
   // Update slide position, active dot, and wrap around edges.
   const updateCarousel = (index) => {
     currentIndex = (index + slides.length) % slides.length;
-    const offset = getSlideOffset();
-    track.style.transform = `translateX(-${currentIndex * offset}px)`;
+    const { offset, centerOffset } = getSlideOffset();
+    const translateX = currentIndex * offset - centerOffset;
+    track.style.transform = `translateX(-${translateX}px)`;
     dots.forEach((dot, idx) => {
       dot.classList.toggle("is-active", idx === currentIndex);
     });
@@ -254,7 +258,6 @@ layout: none
     }
   };
 
-  const viewport = carousel.querySelector(".carousel__viewport");
   viewport.addEventListener("touchstart", handleTouchStart, { passive: true });
   viewport.addEventListener("touchmove", handleTouchMove, { passive: true });
   viewport.addEventListener("touchend", handleTouchEnd);

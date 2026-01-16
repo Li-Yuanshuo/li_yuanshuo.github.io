@@ -286,6 +286,7 @@ body{
   font-size: 30px;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.5), 0 10px 20px rgba(0,0,0,.15);
   opacity: .6;
+  z-index: 5;
   transition: background .2s ease, transform .2s ease, opacity .2s ease;
 }
 

@@ -255,6 +255,7 @@ layout: none
       const translateX = position * offset - centerOffset;
       if (!animate) {
         track.classList.add("is-jumping");
+        track.getBoundingClientRect();
       }
       track.style.transform = `translateX(-${translateX}px)`;
       if (!animate) {
@@ -283,6 +284,10 @@ layout: none
       updateTrackPosition(currentPos);
       updateDots();
     };
+
+    if (!prevBtn || !nextBtn) {
+      return;
+    }
 
     prevBtn.addEventListener("click", () => moveCarousel(-1));
     nextBtn.addEventListener("click", () => moveCarousel(1));
@@ -320,7 +325,7 @@ layout: none
     });
 
     track.addEventListener("transitionend", (event) => {
-      if (event.propertyName !== "transform") {
+      if (!event.propertyName || !event.propertyName.includes("transform")) {
         return;
       }
       const minPos = clonesBefore;

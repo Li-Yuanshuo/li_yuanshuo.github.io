@@ -111,7 +111,7 @@ body{
 
 /* Smaller screens: reduce intro paragraph font size */
 @media (max-width: 768px){
-  .intro p{
+  .intro p:not(.intro__role){
     font-size: clamp(6px, 2cqi, 14px);
   }
 }
@@ -152,7 +152,7 @@ body{
   text-shadow: 0 2px 6px rgba(0,0,0,.35);
 }
 
-.intro p{
+.intro p:not(.intro__role){
   margin: 0;
   color: rgba(255,255,255,.92);
   font-size: clamp(10.5px, 2cqi, 22px);
@@ -164,6 +164,16 @@ body{
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.intro__role{
+  margin: 0 0 8px;
+  font-weight: 600;
+  font-size: clamp(12px, 2.2cqi, 18px);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.9);
+  text-shadow: 0 2px 6px rgba(0,0,0,.35);
 }
 
 /* ========== Carousel Section ========== */
@@ -313,7 +323,7 @@ body{
   margin-top: 32px;
   padding: 24px;
   border-radius: 24px;
-  background: #fffff;
+  background: #fff;
   border: 1px solid var(--border);
   display: grid;
   gap: 18px;
@@ -363,6 +373,12 @@ body{
   max-width: 100%;
   max-height: 100%;
   cursor: pointer;
+}
+
+.carousel__preview-hint{
+  margin: 0;
+  color: #6b6b6b;
+  font-size: 13px;
 }
 
 /* Single-column carousel on smaller screens */

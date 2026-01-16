@@ -7,6 +7,7 @@ layout: none
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Liyuanshuo</title>
+  <link rel="preload" as="image" href="/assets/img/banner.webp" type="image/webp">
   <link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>
@@ -51,6 +52,7 @@ layout: none
       </nav>
       <!-- Intro headline and summary -->
       <h1>Li Yuanshuo</h1>
+      <p class="intro__role">Genomic Data Researcher & Visualization Analyst</p>
       <p>
         I am a genomic data researcher and analyst, focusing on comparative genomics and expression analysis. I design visualizations that transform large-scale biological data into intuitive and interpretable representations.
       </p>
@@ -65,7 +67,7 @@ layout: none
       <h2>Visualization carousel</h2>
       <p>Explore selected genomics visualizations and tap each thumbnail for a larger preview and related code.</p>
     </div>
-    <div class="carousel" data-carousel>
+    <div class="carousel" data-carousel role="region" aria-label="Visualization carousel" tabindex="0">
       <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">
         <span aria-hidden="true">‹</span>
       </button>
@@ -75,43 +77,43 @@ layout: none
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
               <span class="carousel__card-title">Genome landscape overview</span>
-              <img src="/assets/img/carousel-1.svg" alt="Genome landscape overview" title="Genome landscape overview" data-source="/assets/img/carousel-1.svg" data-code="/assets/codes/carousel-1.R">
+              <img src="/assets/img/carousel-1.svg" alt="Genome landscape overview" title="Genome landscape overview" data-source="/assets/img/carousel-1.svg" data-code="/assets/codes/carousel-1.R" loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
               <span class="carousel__card-title">Chromosome alignment flow</span>
-              <img src="/assets/img/carousel-2.svg" alt="Chromosome alignment flow" title="Chromosome alignment flow" data-source="/assets/img/carousel-2.svg" data-code="/assets/codes/carousel-2.R">
+              <img src="/assets/img/carousel-2.svg" alt="Chromosome alignment flow" title="Chromosome alignment flow" data-source="/assets/img/carousel-2.svg" data-code="/assets/codes/carousel-2.R" loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
               <span class="carousel__card-title">Expression atlas gradient</span>
-              <img src="/assets/img/carousel-3.svg" alt="Expression atlas gradient" title="Expression atlas gradient" data-source="/assets/img/carousel-3.svg" data-code="/assets/codes/carousel-3.R">
+              <img src="/assets/img/carousel-3.svg" alt="Expression atlas gradient" title="Expression atlas gradient" data-source="/assets/img/carousel-3.svg" data-code="/assets/codes/carousel-3.R" loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
               <span class="carousel__card-title">Variant clustering map</span>
-              <img src="/assets/img/carousel-4.webp" alt="Variant clustering map" title="Variant clustering map" data-source="/assets/img/carousel-4.svg" data-code="/assets/codes/carousel-4.R">
+              <img src="/assets/img/carousel-4.webp" alt="Variant clustering map" title="Variant clustering map" data-source="/assets/img/carousel-4.webp" data-code="/assets/codes/carousel-4.R" loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
               <span class="carousel__card-title">Pathway interaction grid</span>
-              <img src="/assets/img/carousel-5.svg" alt="Pathway interaction grid" title="Pathway interaction grid" data-source="/assets/img/carousel-5.svg" data-code="/assets/codes/carousel-5.R">
+              <img src="/assets/img/carousel-5.svg" alt="Pathway interaction grid" title="Pathway interaction grid" data-source="/assets/img/carousel-5.svg" data-code="/assets/codes/carousel-5.R" loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
               <span class="carousel__card-title">RNA-seq signal weave</span>
-              <img src="/assets/img/carousel-6.svg" alt="RNA-seq signal weave" title="RNA-seq signal weave" data-source="/assets/img/carousel-6.svg" data-code="/assets/codes/carousel-6.R">
+              <img src="/assets/img/carousel-6.svg" alt="RNA-seq signal weave" title="RNA-seq signal weave" data-source="/assets/img/carousel-6.svg" data-code="/assets/codes/carousel-6.R" loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
               <span class="carousel__card-title">Comparative genome panels</span>
-              <img src="/assets/img/carousel-7.svg" alt="Comparative genome panels" title="Comparative genome panels" data-source="/assets/img/carousel-7.svg" data-code="/assets/codes/carousel-7.R">
+              <img src="/assets/img/carousel-7.svg" alt="Comparative genome panels" title="Comparative genome panels" data-source="/assets/img/carousel-7.svg" data-code="/assets/codes/carousel-7.R" loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
         </ul>
@@ -123,7 +125,7 @@ layout: none
     </div>
 
     <div class="carousel__dots" role="tablist" aria-label="Carousel pagination">
-      <button class="carousel__dot" type="button" aria-label="Slide 1" data-slide="0"></button>
+      <button class="carousel__dot" type="button" aria-label="Slide 1" data-slide="0" aria-current="true"></button>
       <button class="carousel__dot" type="button" aria-label="Slide 2" data-slide="1"></button>
       <button class="carousel__dot" type="button" aria-label="Slide 3" data-slide="2"></button>
       <button class="carousel__dot" type="button" aria-label="Slide 4" data-slide="3"></button>
@@ -135,12 +137,13 @@ layout: none
     <div class="carousel__preview" data-preview>
       <div class="carousel__preview-header">
         <h2>Selected visualization</h2>
-        <p>点击上方图片在下方查看大图；右上角链接可查看对应代码。</p>
+        <p>Click a thumbnail to view the full image; use the link on the right to open the source code.</p>
       </div>
       <div class="carousel__preview-stage">
-        <a class="carousel__preview-link" href="/assets/codes/carousel-1.R" target="_blank" rel="noopener noreferrer">clink to check source code</a>
-        <img class="carousel__preview-image" src="/assets/img/carousel-1.svg" alt="Genome landscape overview" data-source="/assets/img/carousel-1.svg">
+        <a class="carousel__preview-link" href="/assets/codes/carousel-1.R" target="_blank" rel="noopener noreferrer">Click to view source code</a>
+        <img class="carousel__preview-image" src="/assets/img/carousel-1.svg" alt="Genome landscape overview" data-source="/assets/img/carousel-1.svg" loading="lazy" decoding="async" width="1200" height="900" aria-describedby="preview-hint">
       </div>
+      <p class="carousel__preview-hint" id="preview-hint">Tip: click the preview image to open the full-size visualization.</p>
     </div>
   </div>
 </section>
@@ -189,7 +192,13 @@ layout: none
     const translateX = currentIndex * offset - centerOffset;
     track.style.transform = `translateX(-${translateX}px)`;
     dots.forEach((dot, idx) => {
-      dot.classList.toggle("is-active", idx === currentIndex);
+      const isActive = idx === currentIndex;
+      dot.classList.toggle("is-active", isActive);
+      if (isActive) {
+        dot.setAttribute("aria-current", "true");
+      } else {
+        dot.removeAttribute("aria-current");
+      }
     });
   };
 
@@ -261,6 +270,17 @@ layout: none
   viewport.addEventListener("touchstart", handleTouchStart, { passive: true });
   viewport.addEventListener("touchmove", handleTouchMove, { passive: true });
   viewport.addEventListener("touchend", handleTouchEnd);
+
+  carousel.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      updateCarousel(currentIndex - 1);
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      updateCarousel(currentIndex + 1);
+    }
+  });
 </script>
 
 </body>

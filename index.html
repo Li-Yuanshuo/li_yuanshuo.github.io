@@ -187,10 +187,19 @@ layout: none
 
   // Update slide position, active dot, and wrap around edges.
   const updateCarousel = (index) => {
+    const isWrapping = index < 0 || index >= slides.length;
     currentIndex = (index + slides.length) % slides.length;
     const { offset, centerOffset } = getSlideOffset();
     const translateX = currentIndex * offset - centerOffset;
+    if (isWrapping) {
+      track.classList.add("is-jumping");
+    }
     track.style.transform = `translateX(-${translateX}px)`;
+    if (isWrapping) {
+      requestAnimationFrame(() => {
+        track.classList.remove("is-jumping");
+      });
+    }
     dots.forEach((dot, idx) => {
       const isActive = idx === currentIndex;
       dot.classList.toggle("is-active", isActive);
@@ -200,6 +209,7 @@ layout: none
         dot.removeAttribute("aria-current");
       }
     });
+    updatePreview(slides[currentIndex]);
   };
 
   // Previous/next button navigation.

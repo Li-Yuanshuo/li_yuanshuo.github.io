@@ -224,6 +224,10 @@ body{
   transition: transform .5s ease;
 }
 
+.carousel__track.is-jumping{
+  transition: none;
+}
+
 /* Each slide spans a card width */
 .carousel__slide{
   min-width: clamp(210px, 22vw, 290px);

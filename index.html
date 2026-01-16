@@ -194,7 +194,10 @@ layout: none
         return { offset: 0, centerOffset: 0 };
       }
       const slideWidth = slides[0].getBoundingClientRect().width;
-      const gap = parseFloat(getComputedStyle(track).gap || 0);
+      const trackStyles = getComputedStyle(track);
+      const rawGap = trackStyles.columnGap || trackStyles.gap || 0;
+      const gapValue = parseFloat(rawGap);
+      const gap = Number.isFinite(gapValue) ? gapValue : 0;
       const viewportStyles = getComputedStyle(viewport);
       const paddingLeft = parseFloat(viewportStyles.paddingLeft || 0);
       const paddingRight = parseFloat(viewportStyles.paddingRight || 0);
@@ -267,6 +270,10 @@ layout: none
     });
 
     updateCarousel(0, { animate: false });
+
+    window.addEventListener("load", () => {
+      updateCarousel(currentIndex, { animate: false });
+    });
 
     window.addEventListener("resize", () => {
       updateCarousel(currentIndex);

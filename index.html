@@ -134,203 +134,184 @@ layout: none
       <button class="carousel__dot" type="button" aria-label="Slide 7" data-slide="6"></button>
     </div>
 
-    <div class="carousel__preview" data-preview>
+    <div class="carousel__preview is-empty" data-preview>
       <div class="carousel__preview-header">
         <h2>Selected visualization</h2>
         <p>Click a thumbnail to view the full image; use the link on the right to open the source code.</p>
       </div>
       <div class="carousel__preview-stage">
-        <a class="carousel__preview-link" href="/assets/codes/carousel-1.R" target="_blank" rel="noopener noreferrer">Click to view source code</a>
-        <img class="carousel__preview-image" src="/assets/img/carousel-1.svg" alt="Genome landscape overview" data-source="/assets/img/carousel-1.svg" loading="lazy" decoding="async" width="1200" height="900" aria-describedby="preview-hint">
+        <p class="carousel__preview-placeholder">Select a thumbnail to show the larger visualization here.</p>
+        <a class="carousel__preview-link" href="" target="_blank" rel="noopener noreferrer" hidden>Click to view source code</a>
+        <img class="carousel__preview-image" src="" alt="" data-source="" loading="lazy" decoding="async" width="1200" height="900" aria-describedby="preview-hint" hidden>
       </div>
-      <p class="carousel__preview-hint" id="preview-hint">Tip: click the preview image to open the full-size visualization.</p>
+      <p class="carousel__preview-hint" id="preview-hint" hidden>Tip: click the preview image to open the full-size visualization.</p>
     </div>
   </div>
 </section>
 
 <script>
-  // Cache carousel elements for faster lookups.
   const carousel = document.querySelector("[data-carousel]");
-  const track = carousel.querySelector(".carousel__track");
-  const slides = Array.from(track.querySelectorAll(".carousel__slide"));
-  slides.forEach((slide, index) => {
-    slide.dataset.index = index;
-  });
-  const slideCount = slides.length;
-  const cloneSlide = (slide) => {
-    const clone = slide.cloneNode(true);
-    clone.dataset.clone = "true";
-    return clone;
-  };
-  if (slides.length > 1) {
-    const firstClone = cloneSlide(slides[0]);
-    const lastClone = cloneSlide(slides[slides.length - 1]);
-    track.appendChild(firstClone);
-    track.insertBefore(lastClone, slides[0]);
-  }
-  const dots = Array.from(document.querySelectorAll(".carousel__dot"));
-  const prevBtn = carousel.querySelector(".carousel__btn--prev");
-  const nextBtn = carousel.querySelector(".carousel__btn--next");
-  const viewport = carousel.querySelector(".carousel__viewport");
-  const preview = document.querySelector("[data-preview]");
-  const previewImage = preview.querySelector(".carousel__preview-image");
-  const previewLink = preview.querySelector(".carousel__preview-link");
-  // Track the currently visible slide (supports clone positions).
-  let currentIndex = 0;
+  if (carousel) {
+    const track = carousel.querySelector(".carousel__track");
+    const slides = Array.from(track.querySelectorAll(".carousel__slide"));
+    slides.forEach((slide, index) => {
+      slide.dataset.index = index;
+    });
+    const slideCount = slides.length;
+    const dots = Array.from(document.querySelectorAll(".carousel__dot"));
+    const prevBtn = carousel.querySelector(".carousel__btn--prev");
+    const nextBtn = carousel.querySelector(".carousel__btn--next");
+    const viewport = carousel.querySelector(".carousel__viewport");
+    const preview = document.querySelector("[data-preview]");
+    const previewImage = preview.querySelector(".carousel__preview-image");
+    const previewLink = preview.querySelector(".carousel__preview-link");
+    const previewHint = preview.querySelector(".carousel__preview-hint");
+    const previewPlaceholder = preview.querySelector(".carousel__preview-placeholder");
+    let currentIndex = 0;
 
-  const normalizeIndex = (index) => (index + slideCount) % slideCount;
+    const normalizeIndex = (index) => (index + slideCount) % slideCount;
 
-  const updatePreview = (slide) => {
-    const slideImage = slide.querySelector("img");
-    if (!slideImage) {
-      return;
-    }
-    previewImage.src = slideImage.src;
-    previewImage.alt = slideImage.alt;
-    previewImage.dataset.source = slideImage.dataset.source || slideImage.src;
-    previewLink.href = slideImage.dataset.code || slideImage.dataset.source || slideImage.src;
-  };
+    const updatePreview = (slide) => {
+      const slideImage = slide.querySelector("img");
+      if (!slideImage) {
+        return;
+      }
+      previewImage.src = slideImage.src;
+      previewImage.alt = slideImage.alt;
+      previewImage.dataset.source = slideImage.dataset.source || slideImage.src;
+      previewLink.href = slideImage.dataset.code || slideImage.dataset.source || slideImage.src;
+      previewLink.hidden = false;
+      previewImage.hidden = false;
+      previewHint.hidden = false;
+      preview.classList.remove("is-empty");
+      if (previewPlaceholder) {
+        previewPlaceholder.hidden = true;
+      }
+    };
 
-  const getSlideOffset = () => {
-    if (!slides.length) {
-      return { offset: 0, centerOffset: 0 };
-    }
-    const slideWidth = slides[0].getBoundingClientRect().width;
-    const gap = parseFloat(getComputedStyle(track).gap || 0);
-    const viewportStyles = getComputedStyle(viewport);
-    const paddingLeft = parseFloat(viewportStyles.paddingLeft || 0);
-    const paddingRight = parseFloat(viewportStyles.paddingRight || 0);
-    const viewportWidth = viewport.getBoundingClientRect().width;
-    const contentWidth = viewportWidth - paddingLeft - paddingRight;
-    const centerOffset = (contentWidth - slideWidth) / 2;
-    return { offset: slideWidth + gap, centerOffset };
-  };
+    const getSlideOffset = () => {
+      if (!slides.length) {
+        return { offset: 0, centerOffset: 0 };
+      }
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      const gap = parseFloat(getComputedStyle(track).gap || 0);
+      const viewportStyles = getComputedStyle(viewport);
+      const paddingLeft = parseFloat(viewportStyles.paddingLeft || 0);
+      const paddingRight = parseFloat(viewportStyles.paddingRight || 0);
+      const viewportWidth = viewport.getBoundingClientRect().width;
+      const contentWidth = viewportWidth - paddingLeft - paddingRight;
+      const centerOffset = (contentWidth - slideWidth) / 2;
+      return { offset: slideWidth + gap, centerOffset };
+    };
 
-  // Update slide position, active dot, and wrap around edges.
-  const updateCarousel = (index, { animate = true } = {}) => {
-    const hasMultipleSlides = slideCount > 1;
-    currentIndex = index;
-    const normalizedIndex = normalizeIndex(index);
-    const { offset, centerOffset } = getSlideOffset();
-    const renderIndex = hasMultipleSlides ? index + 1 : index;
-    const translateX = renderIndex * offset - centerOffset;
-    if (!animate) {
-      track.classList.add("is-jumping");
-    }
-    track.style.transform = `translateX(-${translateX}px)`;
-    if (!animate) {
-      requestAnimationFrame(() => {
-        track.classList.remove("is-jumping");
+    const updateCarousel = (index, { animate = true } = {}) => {
+      if (!slideCount) {
+        return;
+      }
+      currentIndex = normalizeIndex(index);
+      const { offset, centerOffset } = getSlideOffset();
+      const translateX = currentIndex * offset - centerOffset;
+      if (!animate) {
+        track.classList.add("is-jumping");
+      }
+      track.style.transform = `translateX(-${translateX}px)`;
+      if (!animate) {
+        requestAnimationFrame(() => {
+          track.classList.remove("is-jumping");
+        });
+      }
+      dots.forEach((dot, idx) => {
+        const isActive = idx === currentIndex;
+        dot.classList.toggle("is-active", isActive);
+        if (isActive) {
+          dot.setAttribute("aria-current", "true");
+        } else {
+          dot.removeAttribute("aria-current");
+        }
       });
-    }
-    dots.forEach((dot, idx) => {
-      const isActive = idx === normalizedIndex;
-      dot.classList.toggle("is-active", isActive);
-      if (isActive) {
-        dot.setAttribute("aria-current", "true");
-      } else {
-        dot.removeAttribute("aria-current");
+    };
+
+    prevBtn.addEventListener("click", () => updateCarousel(currentIndex - 1));
+    nextBtn.addEventListener("click", () => updateCarousel(currentIndex + 1));
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        updateCarousel(Number(dot.dataset.slide));
+      });
+    });
+
+    slides.forEach((slide) => {
+      const card = slide.querySelector(".carousel__card");
+      if (!card) {
+        return;
+      }
+      const index = Number(slide.dataset.index);
+      if (Number.isNaN(index)) {
+        return;
+      }
+      card.addEventListener("click", () => {
+        updateCarousel(index);
+        updatePreview(slides[index]);
+      });
+    });
+
+    previewImage.addEventListener("click", () => {
+      const source = previewImage.dataset.source;
+      if (!source) {
+        return;
+      }
+      const newWindow = window.open(source, "_blank", "noopener");
+      if (newWindow) {
+        newWindow.opener = null;
       }
     });
-    updatePreview(slides[normalizedIndex]);
-  };
 
-  // Previous/next button navigation.
-  prevBtn.addEventListener("click", () => updateCarousel(currentIndex - 1));
-  nextBtn.addEventListener("click", () => updateCarousel(currentIndex + 1));
+    updateCarousel(0, { animate: false });
 
-  // Jump to a specific slide when a dot is clicked.
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      updateCarousel(Number(dot.dataset.slide));
+    window.addEventListener("resize", () => {
+      updateCarousel(currentIndex);
     });
-  });
 
-  const allSlides = Array.from(track.querySelectorAll(".carousel__slide"));
-  allSlides.forEach((slide) => {
-    const card = slide.querySelector(".carousel__card");
-    if (!card) {
-      return;
-    }
-    const index = Number(slide.dataset.index);
-    if (Number.isNaN(index)) {
-      return;
-    }
-    card.addEventListener("click", () => {
-      updateCarousel(index);
-      updatePreview(slides[index]);
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 50;
+
+    const handleTouchStart = (event) => {
+      touchStartX = event.touches[0].clientX;
+      touchEndX = touchStartX;
+    };
+
+    const handleTouchMove = (event) => {
+      touchEndX = event.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+      const deltaX = touchEndX - touchStartX;
+      if (Math.abs(deltaX) < swipeThreshold) {
+        return;
+      }
+      if (deltaX > 0) {
+        updateCarousel(currentIndex - 1);
+      } else {
+        updateCarousel(currentIndex + 1);
+      }
+    };
+
+    viewport.addEventListener("touchstart", handleTouchStart, { passive: true });
+    viewport.addEventListener("touchmove", handleTouchMove, { passive: true });
+    viewport.addEventListener("touchend", handleTouchEnd);
+
+    carousel.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        updateCarousel(currentIndex - 1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        updateCarousel(currentIndex + 1);
+      }
     });
-  });
-
-  previewImage.addEventListener("click", () => {
-    const source = previewImage.dataset.source;
-    if (!source) {
-      return;
-    }
-    const newWindow = window.open(source, "_blank", "noopener");
-    if (newWindow) {
-      newWindow.opener = null;
-    }
-  });
-
-  // Initialize the carousel at the first slide.
-  updateCarousel(0, { animate: false });
-  updatePreview(slides[0]);
-
-  track.addEventListener("transitionend", () => {
-    if (slideCount <= 1) {
-      return;
-    }
-    if (currentIndex === -1) {
-      updateCarousel(slideCount - 1, { animate: false });
-    }
-    if (currentIndex === slideCount) {
-      updateCarousel(0, { animate: false });
-    }
-  });
-
-  window.addEventListener("resize", () => {
-    updateCarousel(currentIndex);
-  });
-
-  let touchStartX = 0;
-  let touchEndX = 0;
-  const swipeThreshold = 50;
-
-  const handleTouchStart = (event) => {
-    touchStartX = event.touches[0].clientX;
-  };
-
-  const handleTouchMove = (event) => {
-    touchEndX = event.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    const deltaX = touchEndX - touchStartX;
-    if (Math.abs(deltaX) < swipeThreshold) {
-      return;
-    }
-    if (deltaX > 0) {
-      updateCarousel(currentIndex - 1);
-    } else {
-      updateCarousel(currentIndex + 1);
-    }
-  };
-
-  viewport.addEventListener("touchstart", handleTouchStart, { passive: true });
-  viewport.addEventListener("touchmove", handleTouchMove, { passive: true });
-  viewport.addEventListener("touchend", handleTouchEnd);
-
-  carousel.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      updateCarousel(currentIndex - 1);
-    }
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
-      updateCarousel(currentIndex + 1);
-    }
-  });
+  }
 </script>
 
 </body>

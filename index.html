@@ -158,21 +158,6 @@ layout: none
       slide.dataset.index = index;
     });
     const slideCount = slides.length;
-    const cloneSlide = (slide) => {
-      const clone = slide.cloneNode(true);
-      clone.dataset.clone = "true";
-      return clone;
-    };
-    if (slideCount > 1) {
-      const beforeFragment = document.createDocumentFragment();
-      const afterFragment = document.createDocumentFragment();
-      slides.forEach((slide) => {
-        beforeFragment.appendChild(cloneSlide(slide));
-        afterFragment.appendChild(cloneSlide(slide));
-      });
-      track.insertBefore(beforeFragment, track.firstChild);
-      track.appendChild(afterFragment);
-    }
     const dots = Array.from(document.querySelectorAll(".carousel__dot"));
     const prevBtn = carousel.querySelector(".carousel__btn--prev");
     const nextBtn = carousel.querySelector(".carousel__btn--next");
@@ -223,11 +208,9 @@ layout: none
       if (!slideCount) {
         return;
       }
-      currentIndex = index;
-      const normalizedIndex = normalizeIndex(index);
+      currentIndex = normalizeIndex(index);
       const { offset, centerOffset } = getSlideOffset();
-      const renderIndex = slideCount > 1 ? index + slideCount : index;
-      const translateX = renderIndex * offset - centerOffset;
+      const translateX = currentIndex * offset - centerOffset;
       if (!animate) {
         track.classList.add("is-jumping");
       }
@@ -238,7 +221,7 @@ layout: none
         });
       }
       dots.forEach((dot, idx) => {
-        const isActive = idx === normalizedIndex;
+        const isActive = idx === currentIndex;
         dot.classList.toggle("is-active", isActive);
         if (isActive) {
           dot.setAttribute("aria-current", "true");
@@ -257,8 +240,7 @@ layout: none
       });
     });
 
-    const allSlides = Array.from(track.querySelectorAll(".carousel__slide"));
-    allSlides.forEach((slide) => {
+    slides.forEach((slide) => {
       const card = slide.querySelector(".carousel__card");
       if (!card) {
         return;
@@ -285,22 +267,9 @@ layout: none
     });
 
     updateCarousel(0, { animate: false });
-    updatePreview(slides[0]);
 
     window.addEventListener("resize", () => {
       updateCarousel(currentIndex);
-    });
-
-    track.addEventListener("transitionend", () => {
-      if (slideCount <= 1) {
-        return;
-      }
-      if (currentIndex === -1) {
-        updateCarousel(slideCount - 1, { animate: false });
-      }
-      if (currentIndex === slideCount) {
-        updateCarousel(0, { animate: false });
-      }
     });
 
     let touchStartX = 0;

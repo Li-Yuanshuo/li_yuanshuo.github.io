@@ -153,6 +153,21 @@ layout: none
   const carousel = document.querySelector("[data-carousel]");
   const track = carousel.querySelector(".carousel__track");
   const slides = Array.from(track.querySelectorAll(".carousel__slide"));
+  slides.forEach((slide, index) => {
+    slide.dataset.index = index;
+  });
+  const slideCount = slides.length;
+  const cloneSlide = (slide) => {
+    const clone = slide.cloneNode(true);
+    clone.dataset.clone = "true";
+    return clone;
+  };
+  if (slides.length > 1) {
+    const firstClone = cloneSlide(slides[0]);
+    const lastClone = cloneSlide(slides[slides.length - 1]);
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, slides[0]);
+  }
   const dots = Array.from(document.querySelectorAll(".carousel__dot"));
   const prevBtn = carousel.querySelector(".carousel__btn--prev");
   const nextBtn = carousel.querySelector(".carousel__btn--next");
@@ -160,8 +175,10 @@ layout: none
   const preview = document.querySelector("[data-preview]");
   const previewImage = preview.querySelector(".carousel__preview-image");
   const previewLink = preview.querySelector(".carousel__preview-link");
-  // Track the currently visible slide.
+  // Track the currently visible slide (supports clone positions).
   let currentIndex = 0;
+
+  const normalizeIndex = (index) => (index + slideCount) % slideCount;
 
   const updatePreview = (slide) => {
     const slideImage = slide.querySelector("img");
@@ -190,22 +207,24 @@ layout: none
   };
 
   // Update slide position, active dot, and wrap around edges.
-  const updateCarousel = (index) => {
-    const isWrapping = index < 0 || index >= slides.length;
-    currentIndex = (index + slides.length) % slides.length;
+  const updateCarousel = (index, { animate = true } = {}) => {
+    const hasMultipleSlides = slideCount > 1;
+    currentIndex = index;
+    const normalizedIndex = normalizeIndex(index);
     const { offset, centerOffset } = getSlideOffset();
-    const translateX = currentIndex * offset - centerOffset;
-    if (isWrapping) {
+    const renderIndex = hasMultipleSlides ? index + 1 : index;
+    const translateX = renderIndex * offset - centerOffset;
+    if (!animate) {
       track.classList.add("is-jumping");
     }
     track.style.transform = `translateX(-${translateX}px)`;
-    if (isWrapping) {
+    if (!animate) {
       requestAnimationFrame(() => {
         track.classList.remove("is-jumping");
       });
     }
     dots.forEach((dot, idx) => {
-      const isActive = idx === currentIndex;
+      const isActive = idx === normalizedIndex;
       dot.classList.toggle("is-active", isActive);
       if (isActive) {
         dot.setAttribute("aria-current", "true");
@@ -213,7 +232,7 @@ layout: none
         dot.removeAttribute("aria-current");
       }
     });
-    updatePreview(slides[currentIndex]);
+    updatePreview(slides[normalizedIndex]);
   };
 
   // Previous/next button navigation.
@@ -227,14 +246,19 @@ layout: none
     });
   });
 
-  slides.forEach((slide, index) => {
+  const allSlides = Array.from(track.querySelectorAll(".carousel__slide"));
+  allSlides.forEach((slide) => {
     const card = slide.querySelector(".carousel__card");
     if (!card) {
       return;
     }
+    const index = Number(slide.dataset.index);
+    if (Number.isNaN(index)) {
+      return;
+    }
     card.addEventListener("click", () => {
       updateCarousel(index);
-      updatePreview(slide);
+      updatePreview(slides[index]);
     });
   });
 
@@ -250,8 +274,20 @@ layout: none
   });
 
   // Initialize the carousel at the first slide.
-  updateCarousel(0);
+  updateCarousel(0, { animate: false });
   updatePreview(slides[0]);
+
+  track.addEventListener("transitionend", () => {
+    if (slideCount <= 1) {
+      return;
+    }
+    if (currentIndex === -1) {
+      updateCarousel(slideCount - 1, { animate: false });
+    }
+    if (currentIndex === slideCount) {
+      updateCarousel(0, { animate: false });
+    }
+  });
 
   window.addEventListener("resize", () => {
     updateCarousel(currentIndex);

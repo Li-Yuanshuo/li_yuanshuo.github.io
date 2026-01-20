@@ -1,0 +1,72 @@
+\definecolor{Pantonered}{rgb}{1, 0.5254902, 0.6117647} 
+\definecolor{Pantoneblue}{rgb}{0.5725490, 0.6588235, 1} 
+
+\newcommand{\redbluecircle}{\raisebox{0.5ex}{%
+  \tikz[baseline=0]{
+    % red
+    \fill[Pantonered] (0,0.25) arc[start angle=90, end angle=270, radius=0.25cm] -- cycle;
+    % blue
+    \fill[Pantoneblue] (0,0.25) arc[start angle=90, end angle=-90, radius=0.25cm] -- cycle;
+    % cycle
+    \draw[black!80, ultra thick] (0,0) circle(0.25cm);
+  }%
+}}
+\newcommand{\redcircle}{\raisebox{0.5ex}{%
+  \tikz[baseline=(current bounding box.center)]{
+    % red
+    \fill[Pantonered] (0,0.25) arc[start angle=90, end angle=270, radius=0.25cm] -- cycle;
+    % blue
+    %\fill[Pantoneblue] (0,0.25) arc[start angle=90, end angle=-90, radius=0.25cm] -- cycle;
+    % cycle
+    \draw[black!80, ultra thick] (0,0) circle(0.25cm);
+  }%
+}}
+\newcommand{\bluecircle}{\raisebox{0.5ex}{%
+  \tikz[baseline=(current bounding box.center)]{
+    % red
+    %\fill[Pantonered] (0,0.25) arc[start angle=90, end angle=270, radius=0.25cm] -- cycle;
+    % blue
+    \fill[Pantoneblue] (0,0.25) arc[start angle=90, end angle=-90, radius=0.25cm] -- cycle;
+    % cycle
+    \draw[black!80, ultra thick] (0,0) circle(0.25cm);
+  }%
+}}
+
+
+\renewcommand{\arraystretch}{0.9}
+\footnotesize
+
+\begin{longtable}{ccccllllccc}
+  \caption{\textbf{Genomes and proteomes datasets}} 
+  \label{tab:3.1} \\
+  \toprule
+    &  & & &\textbf{Species} & \textbf{\makecell{Scientific\\[-8pt]name}} & \textbf{\makecell{Data\\[-8pt]source}} & \textbf{Version} & \textbf{\makecell{Multip-\\[-8pt]licity}} &\textbf{No. genes} & \textbf{\makecell{Longest\\[-8pt]isoforms}} \\ 
+  \midrule
+   \multicolumn{3}{c}{\multirow{2}{*}{\centering Mammalia}} & \redbluecircle & Human & \textit{Homo sapiens} & Ensembl & GRCh38.p14 & 1 & 23,231 & 20,087 \\ 
+   \multicolumn{3}{c}{} & \redbluecircle & Mouse & \textit{Mus musculus} & Ensembl & GRCm39 & 1 & 21,700 & 21,692 \\ 
+   \midrule
+   \cellcolor[gray]{0.6}& \multicolumn{2}{c}{\multirow{2}{*}{Holostei}} & \redbluecircle & Spotted gar & \textit{Lepisosteus oculatus} & Ensembl & LepOcu1 & 1 & 22,483 & 18,341 \\ 
+   \cellcolor[gray]{0.6}&  \multicolumn{2}{c}{} & \redcircle & Bowfin & \textit{Amia calva} & RefSeq & GCF\_036373705.1 & 1 & 37,761 & 20,620 \\ 
+   \cline{2-11}
+   \cellcolor[gray]{0.6}&  \cellcolor[gray]{0.9}&  & \redcircle & Mexican tetra & \textit{Astyanax mexicanus} & Ensembl & Astyanax\_mexicanus-1.0.2 & 2 & 40,652 & 26,662 \\ 
+   \cellcolor[gray]{0.6}&  \cellcolor[gray]{0.9}&  & \redcircle & Atlantic cod & \textit{Gadus morhua} & Ensembl & gadMor\_Celtic & 2 & 62,242 & 23,510 \\ 
+   \cellcolor[gray]{0.6}&  \cellcolor[gray]{0.9}&  & \redbluecircle & European eel & \textit{Anguilla anguilla} & RefSeq & GCF\_013347855.1 & 2 & 58,091 & 25,804 \\ 
+   \cellcolor[gray]{0.6}&  \cellcolor[gray]{0.9}&  & \redbluecircle & Zebrafish & \textit{Danio rerio} & Ensembl & GRCz11 & 2 & 51,919 & 25,432 \\ 
+   \cellcolor[gray]{0.6}&  \cellcolor[gray]{0.9}&  & \redbluecircle & Medaka & \textit{Oryzias latipes} & Ensembl & ASM223471v1 & 2 & 23,600 & 23,600 \\ 
+   \cline{3-11}
+   \cellcolor[gray]{0.6}&  \cellcolor[gray]{0.9}& \multirow{2}{*}{\centering \rotatebox{90}{\makecell{Esoci-\\[-10pt]formes}}} & \redbluecircle & Northern pike & \textit{Esox lucius} & Ensembl & fEsoLuc1.pri & 2 & 25,514 & 25,514 \\ 
+   \cellcolor[gray]{0.6}&  \cellcolor[gray]{0.9}&  & \redbluecircle & Eastern mudminnow & \textit{Umbra pygmae} & GenBank & GCA\_040894045.1 & 2 & 24,515 & 24,515 \\ 
+   \cline{3-11}
+   \cellcolor[gray]{0.6}&  \cellcolor[gray]{0.9}& \multirow{6}{*}{\centering \rotatebox{90}{salmonid}} & \bluecircle & Grayling & \textit{Thymallus thymallus} & Paper & doi.org/10.1093/gbe/evy201 & 4 & 48,753 & 48,753 \\ 
+   \cellcolor[gray]{0.6} &  \cellcolor[gray]{0.9}&  & \bluecircle & European whitefish & \textit{Coregonus lavaretus} & GenBank & GCA\_902810595.1 & 4 & 41,785 & 41,785 \\ 
+   \cellcolor[gray]{0.6}&  \cellcolor[gray]{0.9}&  & \bluecircle & American whitefish & \textit{Coregonus clupeaformis} & RefSeq & GCF\_020615455.1 & 4 & 76,885 & 42,375 \\ 
+   \cellcolor[gray]{0.6}&  \cellcolor[gray]{0.9}&  & \bluecircle & Brown trout & \textit{Salmo trutta} & Ensembl & fSalTru1.1 & 4 & 43,759 & 43,759 \\ 
+   \cellcolor[gray]{0.6}&  \cellcolor[gray]{0.9}&  & \bluecircle & Rainbow trout & \textit{Oncorhynchus mykiss} & Ensembl & USDA\_OmykA\_1.1 & 4 & 48,164 & 48,164 \\ 
+   \cellcolor[gray]{0.6}\multirow{-15}{*}{\centering \rotatebox{90}{\textcolor{white}{Ray-finned fish}}} & \cellcolor[gray]{0.9}\multirow{-13}{*}{\centering \rotatebox{90}{Teleost fish}} &  & \bluecircle & Brook trout & \textit{Salvelinus fontinalis} & RefSeq & GCF\_029448725.1 & 4 & 83,302 & 41,335 \\ 
+   \midrule
+   \multicolumn{11}{l}{\qquad \scalebox{0.8}\redcircle  \quad Genomes used in TGD study;\qquad \scalebox{0.8}\bluecircle \quad  Genomes used in SS4R study; \qquad \scalebox{0.8}\redbluecircle \quad Genomes used in both studies} \\
+   \bottomrule
+\end{longtable}
+
+
+

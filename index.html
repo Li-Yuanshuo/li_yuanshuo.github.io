@@ -16,10 +16,8 @@ layout: none
 <section class="banner">
   <div class="banner-bg" aria-hidden="true"></div>
 
-  <!-- 右侧：严格占据视口右半 (50vw)，完全不受 wrap 影响 -->
   <div class="banner-right">
     <div class="intro">
-      <!-- Contact links with accessible text labels -->
       <nav class="contact contact--inline" aria-label="Contact links">
         <a class="iconlink" href="mailto:Liy14@tcd.ie" aria-label="Email">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -51,7 +49,6 @@ layout: none
         </a>
       </nav>
 
-      <!-- Intro headline and summary -->
       <h1>Li Yuanshuo</h1>
       <p class="intro__role">Genomic Data Researcher & Visualization Analyst</p>
       <p>
@@ -65,11 +62,11 @@ layout: none
 <section class="carousel-section">
   <div class="wrap">
     <div class="carousel-section__intro">
-      <h2>Visualization carousel</h2>
-      <p>Explore selected genomics visualizations and tap each thumbnail for a larger preview and related code.</p>
+      <h2>Visualization portfolio</h2>
+      <p>Selected figures and visualizations from my PhD thesis.</p>
     </div>
 
-    <div class="carousel" data-carousel role="region" aria-label="Visualization carousel" tabindex="0">
+    <div class="carousel" data-carousel role="region" aria-label="Visualization portfolio carousel" tabindex="0">
       <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">
         <span aria-hidden="true">‹</span>
       </button>
@@ -78,44 +75,92 @@ layout: none
         <ul class="carousel__track">
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <span class="carousel__card-title">Genome landscape overview</span>
-              <img src="/assets/img/carousel-1.webp" alt="Genome landscape overview" title="Genome landscape overview" data-source="/assets/img/carousel-1.png" data-code="/assets/codes/carousel-1.R" loading="lazy" decoding="async" width="800" height="600">
+              <span class="carousel__card-title">Genome-wide synteny</span>
+              <img
+                src="/assets/img/carousel-1.webp"
+                alt="Genome-wide synteny"
+                title="Genome-wide synteny"
+                data-source="/assets/img/carousel-1.png"
+                data-code="/assets/source_code/carousel-1.R"
+                loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
+
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <span class="carousel__card-title">Chromosome alignment flow</span>
-              <img src="/assets/img/carousel-2.svg" alt="Chromosome alignment flow" title="Chromosome alignment flow" data-source="/assets/img/carousel-2.svg" data-code="/assets/codes/carousel-2.R" loading="lazy" decoding="async" width="800" height="600">
+              <span class="carousel__card-title">Transcriptome dataset overview</span>
+              <img
+                src="/assets/img/carousel-2.svg"
+                alt="Transcriptome dataset overview"
+                title="Transcriptome dataset overview"
+                data-source="/assets/img/carousel-2.svg"
+                data-code="/assets/source_code/carousel-2.tex"
+                loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
+
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <span class="carousel__card-title">Expression atlas gradient</span>
-              <img src="/assets/img/carousel-3.svg" alt="Expression atlas gradient" title="Expression atlas gradient" data-source="/assets/img/carousel-3.svg" data-code="/assets/codes/carousel-3.R" loading="lazy" decoding="async" width="800" height="600">
+              <span class="carousel__card-title">Dimensionality reduction &amp; clustering</span>
+              <img
+                src="/assets/img/carousel-3.svg"
+                alt="Dimensionality reduction &amp; clustering"
+                title="Dimensionality reduction &amp; clustering"
+                data-source="/assets/img/carousel-3.svg"
+                data-code="/assets/source_code/carousel-3.R"
+                loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
+
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <span class="carousel__card-title">Variant clustering map</span>
-              <img src="/assets/img/carousel-4.webp" alt="Variant clustering map" title="Variant clustering map" data-source="/assets/img/carousel-4.webp" data-code="/assets/codes/carousel-4.R" loading="lazy" decoding="async" width="800" height="600">
+              <span class="carousel__card-title">Tissue expression atlas</span>
+              <img
+                src="/assets/img/carousel-4.webp"
+                alt="Tissue expression atlas"
+                title="Tissue expression atlas"
+                data-source="/assets/img/carousel-4.webp"
+                data-code="/assets/source_code/carousel-4.R"
+                loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
+
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
-              <span class="carousel__card-title">Pathway interaction grid</span>
-              <img src="/assets/img/carousel-5.svg" alt="Pathway interaction grid" title="Pathway interaction grid" data-source="/assets/img/carousel-5.svg" data-code="/assets/codes/carousel-5.R" loading="lazy" decoding="async" width="800" height="600">
+              <span class="carousel__card-title">Genome and proteome dataset overview</span>
+              <img
+                src="/assets/img/carousel-5.svg"
+                alt="Genome and proteome dataset overview"
+                title="Genome and proteome dataset overview"
+                data-source="/assets/img/carousel-5.svg"
+                data-code="/assets/source_code/carousel-5.tex"
+                loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
-          <li class="carousel__slide">
-            <button class="carousel__card" type="button">
-              <span class="carousel__card-title">RNA-seq signal weave</span>
-              <img src="/assets/img/carousel-6.svg" alt="RNA-seq signal weave" title="RNA-seq signal weave" data-source="/assets/img/carousel-6.svg" data-code="/assets/codes/carousel-6.R" loading="lazy" decoding="async" width="800" height="600">
-            </button>
-          </li>
+
           <li class="carousel__slide">
             <button class="carousel__card" type="button">
               <span class="carousel__card-title">Comparative genome panels</span>
-              <img src="/assets/img/carousel-7.svg" alt="Comparative genome panels" title="Comparative genome panels" data-source="/assets/img/carousel-7.svg" data-code="/assets/codes/carousel-7.R" loading="lazy" decoding="async" width="800" height="600">
+              <img
+                src="/assets/img/carousel-6.svg"
+                alt="Comparative genome panels"
+                title="Comparative genome panels"
+                data-source="/assets/img/carousel-6.svg"
+                data-code="/assets/source_code/carousel-6.R"
+                loading="lazy" decoding="async" width="800" height="600">
+            </button>
+          </li>
+
+          <li class="carousel__slide">
+            <button class="carousel__card" type="button">
+              <span class="carousel__card-title">Gene expression heatmap</span>
+              <img
+                src="/assets/img/carousel-7.svg"
+                alt="Gene expression heatmap"
+                title="Gene expression heatmap"
+                data-source="/assets/img/carousel-7.svg"
+                data-code="/assets/source_code/carousel-7.R"
+                loading="lazy" decoding="async" width="800" height="600">
             </button>
           </li>
         </ul>
@@ -136,17 +181,12 @@ layout: none
       <button class="carousel__dot" type="button" aria-label="Slide 7" data-slide="6"></button>
     </div>
 
-    <div class="carousel__preview is-empty" data-preview>
-      <div class="carousel__preview-header">
-        <h2>Selected visualization</h2>
-        <p>Click a thumbnail to view the full image; use the link on the right to open the source code.</p>
-      </div>
+    <!-- Preview (no header text / no tip text) -->
+    <div class="carousel__preview" data-preview>
       <div class="carousel__preview-stage">
-        <p class="carousel__preview-placeholder">Select a thumbnail to show the larger visualization here.</p>
-        <a class="carousel__preview-link" href="" target="_blank" rel="noopener noreferrer" hidden>Click to view source code</a>
-        <img class="carousel__preview-image" src="" alt="" data-source="" loading="lazy" decoding="async" width="1200" height="900" aria-describedby="preview-hint" hidden>
+        <a class="carousel__preview-link" href="" target="_blank" rel="noopener noreferrer">Click to view source code</a>
+        <img class="carousel__preview-image" src="" alt="" data-source="" loading="lazy" decoding="async" width="1200" height="900">
       </div>
-      <p class="carousel__preview-hint" id="preview-hint" hidden>Tip: click the preview image to open the full-size visualization.</p>
     </div>
   </div>
 </section>
@@ -160,9 +200,7 @@ layout: none
     const clonesBefore = 2;
     const clonesAfter = 2;
 
-    if (!track || slideCount === 0) {
-      // nothing to do
-    } else {
+    if (track && slideCount > 0) {
       /*
         Track order after cloning:
         [clone6][clone7] 1 2 3 4 5 6 7 [clone1][clone2]
@@ -187,12 +225,7 @@ layout: none
         .slice(0, clonesAfter)
         .map((slide) => createClone(slide, Number(slide.dataset.realIndex)));
 
-      // prepend clones in correct order: clone6 then clone7 at the front
-      beforeClones
-        .slice()
-        .reverse()
-        .forEach((clone) => track.prepend(clone));
-
+      beforeClones.slice().reverse().forEach((clone) => track.prepend(clone));
       afterClones.forEach((clone) => track.append(clone));
 
       const slides = Array.from(track.querySelectorAll(".carousel__slide"));
@@ -204,8 +237,6 @@ layout: none
       const preview = document.querySelector("[data-preview]");
       const previewImage = preview.querySelector(".carousel__preview-image");
       const previewLink = preview.querySelector(".carousel__preview-link");
-      const previewHint = preview.querySelector(".carousel__preview-hint");
-      const previewPlaceholder = preview.querySelector(".carousel__preview-placeholder");
 
       let currentIndex = 0;          // 0..6 (real)
       let currentPos = clonesBefore; // position in track incl. clones
@@ -216,18 +247,14 @@ layout: none
         const slideImage = slide.querySelector("img");
         if (!slideImage) return;
 
-        previewImage.src = slideImage.src;
-        previewImage.alt = slideImage.alt;
-        previewImage.dataset.source = slideImage.dataset.source || slideImage.src;
+        const source = slideImage.dataset.source || slideImage.src;
+        const code = slideImage.dataset.code || "";
 
-        previewLink.href = slideImage.dataset.code || slideImage.dataset.source || slideImage.src;
-        previewLink.hidden = false;
+        previewImage.src = source;
+        previewImage.alt = slideImage.alt || "";
+        previewImage.dataset.source = source;
 
-        previewImage.hidden = false;
-        previewHint.hidden = false;
-        preview.classList.remove("is-empty");
-
-        if (previewPlaceholder) previewPlaceholder.hidden = true;
+        previewLink.href = code || source;
       };
 
       const getSlideOffset = () => {
@@ -266,13 +293,13 @@ layout: none
 
         if (!animate) {
           track.classList.add("is-jumping");
-          track.getBoundingClientRect(); // force reflow: ensure transition:none is applied
+          track.getBoundingClientRect(); // force reflow so transition:none is applied
         }
 
         track.style.transform = `translateX(-${translateX}px)`;
 
         if (!animate) {
-          // double rAF to avoid browsers merging styles and animating the jump
+          // double rAF avoids browsers merging styles and animating the "jump"
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
               track.classList.remove("is-jumping");
@@ -282,37 +309,26 @@ layout: none
       };
 
       const updateCarousel = (index, { animate = true } = {}) => {
-        if (!slideCount) return;
-
         currentIndex = normalizeIndex(index);
         currentPos = clonesBefore + currentIndex;
-
         updateTrackPosition(currentPos, { animate });
         updateDots();
       };
 
       const moveCarousel = (direction) => {
-        if (!slideCount) return;
-
         currentIndex = normalizeIndex(currentIndex + direction);
         currentPos += direction;
-
         updateTrackPosition(currentPos, { animate: true });
         updateDots();
       };
 
-      // Buttons (guarded)
       if (prevBtn) prevBtn.addEventListener("click", () => moveCarousel(-1));
       if (nextBtn) nextBtn.addEventListener("click", () => moveCarousel(1));
 
-      // Dots
       dots.forEach((dot) => {
-        dot.addEventListener("click", () => {
-          updateCarousel(Number(dot.dataset.slide));
-        });
+        dot.addEventListener("click", () => updateCarousel(Number(dot.dataset.slide)));
       });
 
-      // Slide click -> center + preview (use real index, preview uses originalSlides)
       slides.forEach((slide) => {
         const card = slide.querySelector(".carousel__card");
         if (!card) return;
@@ -326,11 +342,10 @@ layout: none
         });
       });
 
-      // Preview image -> open full size
+      // Click preview image -> open full-size in new tab
       previewImage.addEventListener("click", () => {
         const source = previewImage.dataset.source;
         if (!source) return;
-
         const newWindow = window.open(source, "_blank", "noopener");
         if (newWindow) newWindow.opener = null;
       });
@@ -340,18 +355,18 @@ layout: none
         const prop = String(event.propertyName || "");
         if (!prop.includes("transform")) return;
 
-        const minPos = clonesBefore; // first real slide position
-        const maxPos = clonesBefore + slideCount - 1; // last real slide position
+        const minPos = clonesBefore;
+        const maxPos = clonesBefore + slideCount - 1;
 
         if (currentPos < minPos || currentPos > maxPos) {
-          // Jump (no animation) back to the real equivalent position
           currentPos = clonesBefore + currentIndex;
           updateTrackPosition(currentPos, { animate: false });
         }
       });
 
-      // Init: real slide #1 centered; visible order will be 6 7 [1] 2 3 due to clones
+      // Init: center slide 1, AND show preview for slide 1 by default
       updateCarousel(0, { animate: false });
+      updatePreview(originalSlides[0]);
 
       window.addEventListener("load", () => {
         updateCarousel(currentIndex, { animate: false });
@@ -378,7 +393,6 @@ layout: none
       const handleTouchEnd = () => {
         const deltaX = touchEndX - touchStartX;
         if (Math.abs(deltaX) < swipeThreshold) return;
-
         if (deltaX > 0) moveCarousel(-1);
         else moveCarousel(1);
       };

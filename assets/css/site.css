@@ -5,10 +5,8 @@
   --white: #fff;
 }
 
-/* Normalize box sizing across elements */
 *{ box-sizing: border-box; }
 
-/* Base typography defaults */
 body{
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
@@ -17,7 +15,6 @@ body{
   line-height: 1.6;
 }
 
-/* Centered content container */
 .wrap{
   max-width: var(--max);
   margin: 0 auto;
@@ -32,7 +29,6 @@ body{
   border-bottom: 1px solid var(--border);
 }
 
-/* 背景图：不额外 blur */
 .banner-bg{
   position: absolute;
   inset: 0;
@@ -42,7 +38,6 @@ body{
   filter: none;
 }
 
-/* Contact icon row */
 .contact{
   display: flex;
   flex-direction: row;
@@ -54,7 +49,6 @@ body{
   align-self: flex-start;
 }
 
-/* 图标链接 */
 .iconlink{
   width: 38px;
   height: 38px;
@@ -78,7 +72,6 @@ body{
   opacity: .95;
 }
 
-/* 隐藏文字但保留可访问性 */
 .iconlink span{
   position: absolute;
   width: 1px;
@@ -91,7 +84,7 @@ body{
   border: 0;
 }
 
-/* ========== 右侧：桌面端占据视口右半 50vw ========== */
+/* Right half overlay */
 .banner-right{
   position: absolute;
   z-index: 2;
@@ -99,24 +92,19 @@ body{
   left: 50vw;
   width: 50vw;
   height: 100%;
-
   display: flex;
   align-items: center;
   padding: 0 28px;
   color: var(--white);
-
-  /* 容器查询：以右半区宽度为基准 */
   container-type: inline-size;
 }
 
-/* Smaller screens: reduce intro paragraph font size */
 @media (max-width: 768px){
   .intro p:not(.intro__role){
     font-size: clamp(6px, 2cqi, 14px);
   }
 }
 
-/* Smaller screens: shift banner content left for visibility */
 @media (max-width: 768px){
   .banner-right{
     left: 40vw;
@@ -124,7 +112,6 @@ body{
   }
 }
 
-/* Dark gradient overlay for text readability */
 .banner-right::before{
   content: "";
   position: absolute;
@@ -134,7 +121,6 @@ body{
   pointer-events: none;
 }
 
-/* About me 内容 */
 .intro{
   max-width: 760px;
   width: 100%;
@@ -142,7 +128,6 @@ body{
   z-index: 1;
 }
 
-/* 基础流体字体（即使不支持 container query 也能缩放） */
 .intro h1{
   margin: 0 0 10px;
   font-weight: 700;
@@ -158,8 +143,6 @@ body{
   font-size: clamp(10.5px, 2cqi, 22px);
   line-height: 1.55;
   text-shadow: 0 2px 6px rgba(0,0,0,.35);
-
-  /* 最多 7 行 */
   display: -webkit-box;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
@@ -199,7 +182,6 @@ body{
   font-size: 16px;
 }
 
-/* Carousel layout and controls */
 .carousel{
   position: relative;
   display: grid;
@@ -208,7 +190,6 @@ body{
   gap: 20px;
 }
 
-/* Make sure viewport is below buttons (clickability fix) */
 .carousel__viewport{
   overflow: hidden;
   border-radius: 20px;
@@ -216,7 +197,6 @@ body{
   z-index: 1;
 }
 
-/* Sliding track for the carousel */
 .carousel__track{
   list-style: none;
   padding: 0;
@@ -230,12 +210,10 @@ body{
   transition: none;
 }
 
-/* Each slide spans a card width */
 .carousel__slide{
   min-width: clamp(210px, 22vw, 290px);
 }
 
-/* Clickable card used for preview updates */
 .carousel__card{
   position: relative;
   width: 100%;
@@ -250,21 +228,29 @@ body{
   box-shadow: 0 12px 26px rgba(0,0,0,.18);
 }
 
+/* ✅ Requirement #1: gray top-to-bottom gradient embedded title (like your screenshot) */
 .carousel__card-title{
   position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  z-index: 1;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+
+  padding: 10px 12px 18px;
   text-align: center;
+  font-size: 13px;
+  font-weight: 650;
   color: #fff;
-  background: rgba(0,0,0,.55);
+  letter-spacing: 0.01em;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(120,120,120,0.88) 0%,
+    rgba(120,120,120,0.55) 35%,
+    rgba(120,120,120,0.00) 100%
+  );
+
   pointer-events: none;
-  text-shadow: 0 1px 3px rgba(0,0,0,.35);
 }
 
 .carousel__card img{
@@ -274,7 +260,6 @@ body{
   object-fit: cover;
 }
 
-/* Previous/next buttons */
 .carousel__btn{
   border: none;
   background: #d6d6d6;
@@ -289,8 +274,6 @@ body{
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.5), 0 10px 20px rgba(0,0,0,.15);
   opacity: .6;
   transition: background .2s ease, transform .2s ease, opacity .2s ease;
-
-  /* IMPORTANT: make buttons clickable above viewport/track */
   position: relative;
   z-index: 10;
   pointer-events: auto;
@@ -302,7 +285,6 @@ body{
   transform: scale(1.05);
 }
 
-/* Pagination dots */
 .carousel__dots{
   display: flex;
   justify-content: center;
@@ -340,34 +322,18 @@ body{
   gap: 18px;
 }
 
-.carousel__preview-header h2{
-  margin: 0 0 6px;
-  font-size: 20px;
-}
-
-.carousel__preview-header p{
-  margin: 0;
-  color: #555;
-}
-
+/* ✅ Requirement #4: top-aligned preview (not vertically centered) */
 .carousel__preview-stage{
   background: #fff;
   border-radius: 18px;
   padding: 24px;
   min-height: clamp(280px, 35vw, 420px);
+
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;   /* top align */
+  justify-content: center;   /* keep horizontally centered */
   overflow: hidden;
   position: relative;
-}
-
-.carousel__preview-placeholder{
-  margin: 0;
-  color: #6b6b6b;
-  font-size: 14px;
-  text-align: center;
-  max-width: 420px;
 }
 
 .carousel__preview-link{
@@ -392,15 +358,11 @@ body{
   max-width: 100%;
   max-height: 100%;
   cursor: pointer;
+  display: block;
+  margin-top: 0; /* ensure top-aligned */
 }
 
-.carousel__preview-hint{
-  margin: 0;
-  color: #6b6b6b;
-  font-size: 13px;
-}
-
-/* Single-column carousel on smaller screens */
+/* Small screens */
 @media (max-width: 900px){
   .carousel{
     grid-template-columns: 1fr;

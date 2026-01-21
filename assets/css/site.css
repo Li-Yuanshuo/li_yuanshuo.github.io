@@ -1,4 +1,3 @@
-/* Global design tokens */
 :root{
   --max: 1100px;
   --border: #e6e6e6;
@@ -21,7 +20,7 @@ body{
   padding: 0 18px;
 }
 
-/* ========== Banner ========== */
+/* ===== Banner ===== */
 .banner{
   position: relative;
   height: clamp(220px, 28vw, 360px);
@@ -35,18 +34,14 @@ body{
   background-image: url("/assets/img/banner.webp");
   background-size: cover;
   background-position: 60% 40%;
-  filter: none;
 }
 
 .contact{
   display: flex;
-  flex-direction: row;
   gap: 12px;
   margin: 0 0 12px;
   padding: 0;
   align-items: center;
-  justify-content: flex-start;
-  align-self: flex-start;
 }
 
 .iconlink{
@@ -61,9 +56,7 @@ body{
   text-shadow: 0 2px 6px rgba(0,0,0,.35);
 }
 
-.iconlink:hover{
-  background: rgba(255,255,255,.12);
-}
+.iconlink:hover{ background: rgba(255,255,255,.12); }
 
 .iconlink svg{
   width: 20px;
@@ -84,7 +77,6 @@ body{
   border: 0;
 }
 
-/* Right half overlay */
 .banner-right{
   position: absolute;
   z-index: 2;
@@ -100,16 +92,7 @@ body{
 }
 
 @media (max-width: 768px){
-  .intro p:not(.intro__role){
-    font-size: clamp(6px, 2cqi, 14px);
-  }
-}
-
-@media (max-width: 768px){
-  .banner-right{
-    left: 40vw;
-    width: 60vw;
-  }
+  .banner-right{ left: 40vw; width: 60vw; }
 }
 
 .banner-right::before{
@@ -137,6 +120,16 @@ body{
   text-shadow: 0 2px 6px rgba(0,0,0,.35);
 }
 
+.intro__role{
+  margin: 0 0 8px;
+  font-weight: 600;
+  font-size: clamp(12px, 2.2cqi, 18px);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.9);
+  text-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+
 .intro p:not(.intro__role){
   margin: 0;
   color: rgba(255,255,255,.92);
@@ -149,17 +142,7 @@ body{
   overflow: hidden;
 }
 
-.intro__role{
-  margin: 0 0 8px;
-  font-weight: 600;
-  font-size: clamp(12px, 2.2cqi, 18px);
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.9);
-  text-shadow: 0 2px 6px rgba(0,0,0,.35);
-}
-
-/* ========== Carousel Section ========== */
+/* ===== Carousel section ===== */
 .carousel-section{
   padding: 56px 0 72px;
   background: #fff;
@@ -206,13 +189,9 @@ body{
   transition: transform .5s ease;
 }
 
-.carousel__track.is-jumping{
-  transition: none;
-}
+.carousel__track.is-jumping{ transition: none; }
 
-.carousel__slide{
-  min-width: clamp(210px, 22vw, 290px);
-}
+.carousel__slide{ min-width: clamp(210px, 22vw, 290px); }
 
 .carousel__card{
   position: relative;
@@ -228,7 +207,7 @@ body{
   box-shadow: 0 12px 26px rgba(0,0,0,.18);
 }
 
-/* ✅ Requirement #1: gray top-to-bottom gradient embedded title (like your screenshot) */
+/* gray gradient title embedded */
 .carousel__card-title{
   position: absolute;
   top: 0;
@@ -311,35 +290,27 @@ body{
   transform: scale(1.3);
 }
 
-/* Preview area beneath carousel */
+/* ===== Preview (A: image keeps original ratio, width follows container, page can grow) ===== */
 .carousel__preview{
   margin-top: 32px;
   padding: 24px;
   border-radius: 24px;
   background: #fff;
   border: 1px solid var(--border);
-  display: grid;
-  gap: 18px;
 }
 
-/* ✅ Requirement #4: top-aligned preview (not vertically centered) */
 .carousel__preview-stage{
   background: #fff;
   border-radius: 18px;
-  padding: 24px;
-  min-height: clamp(280px, 35vw, 420px);
-
-  display: flex;
-  align-items: flex-start;   /* top align */
-  justify-content: center;   /* keep horizontally centered */
-  overflow: hidden;
+  padding: 18px;
   position: relative;
 }
 
+/* link */
 .carousel__preview-link{
   position: absolute;
-  top: 16px;
-  right: 18px;
+  top: 14px;
+  right: 14px;
   font-size: 12px;
   color: #1c5a93;
   text-decoration: none;
@@ -348,21 +319,28 @@ body{
   border-radius: 999px;
   border: 1px solid #d6e2ee;
   box-shadow: 0 8px 16px rgba(0,0,0,.12);
+  z-index: 2;
 }
 
-.carousel__preview-link:hover{
-  color: #0f3f6a;
-}
+.carousel__preview-link:hover{ color: #0f3f6a; }
 
+/* IMPORTANT: keep aspect ratio, scale by width, no stretching */
 .carousel__preview-image{
-  max-width: 100%;
-  max-height: 100%;
-  cursor: pointer;
   display: block;
-  margin-top: 0; /* ensure top-aligned */
+  width: 100%;
+  height: auto;        /* key */
+  max-width: 100%;
+  object-fit: contain;
+  cursor: pointer;
+  margin: 0;           /* top aligned naturally */
 }
 
-/* Small screens */
+/* optional: tables get slightly tighter padding */
+.carousel__preview.is-table .carousel__preview-stage{
+  padding: 10px;
+}
+
+/* Mobile */
 @media (max-width: 900px){
   .carousel{
     grid-template-columns: 1fr;
@@ -377,21 +355,22 @@ body{
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-  }
-
-  .carousel__btn--prev{
-    left: 12px;
-  }
-
-  .carousel__btn--next{
-    right: 12px;
-  }
-
-  .carousel__btn{
     height: 90px;
   }
 
+  .carousel__btn--prev{ left: 12px; }
+  .carousel__btn--next{ right: 12px; }
+
   .carousel__preview{
-    padding: 18px;
+    padding: 14px;
+  }
+
+  .carousel__preview-stage{
+    padding: 10px;
+  }
+
+  .carousel__preview-link{
+    top: 10px;
+    right: 10px;
   }
 }

@@ -374,3 +374,17 @@ body{
     right: 10px;
   }
 }
+
+/* FORCE preview images to keep aspect ratio (override any global img rules) */
+.carousel__preview-image{
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+}
+
+/* Make sure the preview container never forces image height */
+.carousel__preview-stage{
+  height: auto !important;
+  min-height: 0 !important;
+}

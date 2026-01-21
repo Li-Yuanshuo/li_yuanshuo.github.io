@@ -388,3 +388,12 @@ body{
   height: auto !important;
   min-height: 0 !important;
 }
+
+@media (max-width: 768px){
+  .intro p:not(.intro__role){
+    display: block;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+    overflow: visible;
+  }
+}

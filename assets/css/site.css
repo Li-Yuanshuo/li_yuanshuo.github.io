@@ -397,3 +397,20 @@ body{
     overflow: visible;
   }
 }
+
+@media (max-width: 768px){
+  .carousel__preview{
+    margin-left: -18px;
+    margin-right: -18px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+@media (max-width: 768px){
+  .carousel__preview-link{
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+}
